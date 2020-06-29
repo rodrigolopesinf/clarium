@@ -1,0 +1,189 @@
+﻿@{
+    ViewBag.Title = "Millenium";
+    Layout = "~/Areas/Administrativa/Views/Shared/_Layout.cshtml";
+}
+
+<div id="page-wrapper">
+    <div class="container-fluid">
+        <!-- Page Heading -->
+        <div class="row">
+            <div class="col-lg-12">
+                <h3 class="page-header">
+                    Administração <small>Estatísticas</small>
+                </h3>
+            </div>
+        </div>
+        <!-- /.row -->
+
+        <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+            <div class="panel panel-primary">
+                <div class="panel-heading" role="tab" id="headingTwo">
+                    <h4 class="panel-title">
+                        Dados
+                    </h4>
+                </div>
+                <div id="collapseTwo" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingTwo">
+                    <div class="panel-body">
+                        <form action='@Url.Action("Buscar", "Cargo")' method="get" class="form-control-static col-md-12 center-block" novalidate>
+                            <!-- Small boxes (Stat box) -->
+                            <div class="row">
+                                <div class="col-lg-3 col-xs-6">
+                                    <!-- small box -->
+                                    <div class="small-box bg-green">
+                                        <div class="inner">
+                                            <h3>
+                                                100
+                                                @*@ViewBag.VisitasRealizadas*@
+                                            </h3>
+                                            <p>
+                                                Pesquisas Finalizadas
+                                            </p>
+                                        </div>
+                                        <div class="icon">
+                                            <i class="ion ion-star"></i>
+                                        </div>
+                                        <div class="small-box-footer">
+                                            Mês Atual <i class="fa fa-arrow-up"></i>
+                                        </div>
+                                    </div>
+                                </div><!-- ./col -->
+                                <div class="col-lg-3 col-xs-6">
+                                    <!-- small box -->
+                                    <div class="small-box bg-yellow">
+                                        <div class="inner">
+                                            <h3>
+                                                30
+                                                @*@ViewBag.VisitasPendentes*@
+                                            </h3>
+                                            <p>
+                                                Pesquisas Pendentes
+                                            </p>
+                                        </div>
+                                        <div class="icon">
+                                            <i class="ion ion-android-timer"></i>
+                                        </div>
+                                        <div class="small-box-footer">
+                                            Mês Atual <i class="fa fa-arrow-up"></i>
+                                        </div>
+                                    </div>
+                                </div><!-- ./col -->
+                                <div class="col-lg-3 col-xs-6">
+                                    <!-- small box -->
+                                    <div class="small-box bg-red">
+                                        <div class="inner">
+                                            <h3>
+                                                2
+                                                @*@ViewBag.VisitasNaoRealizadas*@
+                                            </h3>
+                                            <p>
+                                                Pesquisas Não Realizadas
+                                            </p>
+                                        </div>
+                                        <div class="icon">
+                                            <i class="ion ion-battery-empty"></i>
+                                        </div>
+                                        <div class="small-box-footer">
+                                            Mês Anterior <i class="fa fa-arrow-left"></i>
+                                        </div>
+                                    </div>
+                                </div><!-- ./col -->
+                                <div class="col-lg-3 col-xs-6">
+                                    <!-- small box -->
+                                    <div class="small-box bg-aqua">
+                                        <div class="inner">
+                                            <h3>
+                                                20
+                                                @*@ViewBag.NovosClientes*@
+                                            </h3>
+                                            <p>
+                                                Novos Clientes
+                                            </p>
+                                        </div>
+                                        <div class="icon">
+                                            <i class="ion ion-bag"></i>
+                                        </div>
+                                        <div class="small-box-footer">
+                                            Mês Anterior <i class="fa fa-arrow-left"></i>
+                                        </div>
+                                    </div>
+                                </div><!-- ./col -->
+                            </div><!-- /.row -->
+
+                            <br/>
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="panel panel-primary">
+                                        <div class="panel-heading">
+                                            <h3 class="panel-title"><i class="fa fa-info fa-fw"></i> Informações Importantes
+                                            </h3>
+                                        </div>
+                                        <div class="panel-body">
+                                            <div class="list-group col-lg-6">
+                                                <a href="@ViewBag.Pedidos" class="list-group-item">
+                                                    <span class="badge"></span>
+                                                    <i class="fa fa-fw fa-calendar"></i> Pedidos de Patrimônio
+                                                </a>
+                                                <a href="#" class="list-group-item">
+                                                    <span class="badge">@ViewBag.Informacao</span>
+                                                    <i class="fa fa-fw fa-calendar"></i> Informação Aqui
+                                                </a>
+                                                <a href="#" class="list-group-item">
+                                                    <span class="badge">@ViewBag.Informacao</span>
+                                                    <i class="fa fa-fw fa-calendar"></i> Informação Aqui
+                                                </a>
+                                                <a href="#" class="list-group-item">
+                                                    <span class="badge">@ViewBag.Informacao</span>
+                                                    <i class="fa fa-fw fa-calendar"></i> Informação Aqui
+                                                </a>
+                                            </div>
+                                            <div class="list-group col-lg-6">
+                                                <a href="#" class="list-group-item">
+                                                    <span class="badge">@ViewBag.Informacao</span>
+                                                    <i class="fa fa-fw fa-calendar"></i> Informação Aqui
+                                                </a>
+                                                <a href="#" class="list-group-item">
+                                                    <span class="badge">@ViewBag.Informacao</span>
+                                                    <i class="fa fa-fw fa-calendar"></i> Informação Aqui
+                                                </a>
+                                                <a href="#" class="list-group-item">
+                                                    <span class="badge">@ViewBag.Informacao</span>
+                                                    <i class="fa fa-fw fa-calendar"></i> Informação Aqui
+                                                </a>
+                                                <a href="#" class="list-group-item">
+                                                    <span class="badge">@ViewBag.Informacao</span>
+                                                    <i class="fa fa-fw fa-calendar"></i> Informação Aqui
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <br/>
+                            <!--Grafico Barras-->
+                            @*<div class="row">
+                                <div class="col-lg-12">
+                                    <div class="panel panel-primary">
+                                        <div class="panel-heading">
+                                            <h3 class="panel-title"><i class="fa fa-bar-chart-o fa-fw"></i> Gráficos
+                                            </h3>
+                                        </div>
+                                        <div id="grafico" style="height: 400px"></div>
+                                    </div>
+                                </div>
+                            </div>*@
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        @*<script src="/js/Graficos/highcharts.js"></script>
+        <script src="/js/Graficos/highcharts-3d.js"></script>
+        <script src="/js/Graficos/exporting.js"></script>*@
+
+        <!--Grafico Barras-->
+        @*<script src="/js/Graficos/Graficos.js"></script>*@
+    </div>
+</div>
+
+
+

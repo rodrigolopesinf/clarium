@@ -1,0 +1,145 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Administrativa/Views/Shared/_Layout.cshtml";
+}
+@model Site.Areas.Cadastro.Models.ClienteViewModel
+
+<div id="page-wrapper">
+    <div>
+        <!-- Page Heading -->
+        <div class="row">
+            <div class="col-lg-12">
+                <h3 class="page-header">
+                    Cliente
+                </h3>
+            </div>
+        </div>
+        <!-- /.row -->
+
+        <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+            <div class="panel panel-primary">
+                <div class="panel-heading" role="tab" id="headingTwo">
+                    <h4 class="panel-title">
+                        <i class="fa fa-plus-circle"></i>&nbsp;Novo Cliente
+                    </h4>
+                </div>
+                <div id="collapseTwo" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingTwo">
+                    <div class="panel-body">
+                        @Html.ActionLink("Cadastrar", "Edit", "Cliente", null, null)
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br />
+        <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+            <div class="panel panel-primary">
+                <div class="panel-heading" role="tab" id="headingTwo">
+                    <h4 class="panel-title">
+                        <i class="fa fa-search"></i>&nbsp;Pesquisa
+                    </h4>
+                </div>
+                <div id="collapseTwo" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingTwo">
+                    <div class="panel-body">
+                        <form action='@Url.Action("Buscar", "Cliente")' method="get" class="form-control-static col-md-12 center-block" novalidate>
+                            <div class="form-group col-lg-12">
+                                <div class="alert alert-danger alert-dismissable" style="@ViewBag.MensagemErro">
+                                    <i class="fa  fa-exclamation"></i>
+                                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                                    <b>Alerta!</b> O Cliente <b>NÃO</b> foi excluído! Você <b>não</b> pode excluir um cliente, contate o administrador do sistema.
+                                </div>
+                                <div class="form-group col-lg-4">
+                                    <label>Nome / Nome Fantasia</label>
+                                    @Html.TextBoxFor(m => m.Nome, new {@class = "form-control", @maxlength = 255, onkeyup = "this.value = this.value.toUpperCase();"})
+                                </div>
+                                <div class="form-group col-lg-2">
+                                    <label>Cpf:</label>&nbsp;
+                                    @Html.TextBoxFor(m => m.Cpf, new {@class = "form-control", @maxlength = 14, onkeyup = "formataCPF(event);"})
+                                </div>
+                                <div class="form-group col-lg-3">
+                                    <label>Cnpj:</label>&nbsp;
+                                    @Html.TextBoxFor(m => m.Cnpj, new {@class = "form-control", @maxlength = 18, onkeyup = "formataCNPJ(event);"})
+                                </div>
+                                <div class="form-group col-lg-2">
+                                    <label>Ativo</label>
+                                    <select class="form-control" name="ativo">
+                                        <option value="true">Sim</option>
+                                        <option value="false">Não</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group col-lg-12">
+                                <div class="form-group col-lg-3">
+                                    <label>Situação</label>
+                                    @Html.DropDownListFor(model => model.IdSituacaoCliente, Model.ListaSituacaoCliente, "SELECIONE", new {@class = "form-control"})
+                                </div>
+                                <div class="form-group col-lg-3">
+                                    <label>Bairro</label>
+                                    @Html.DropDownListFor(model => model.EnderecoViewModel.IdBairro, Model.EnderecoViewModel.ListaBairro, "SELECIONE", new {@class = "form-control"})
+                                </div>
+                                <div class="form-group col-lg-4">
+                                    <label>Pesquisar</label><br />
+                                    <input type="submit" class="btn btn-default" value="Buscar" name="button" />&nbsp;
+                                    <input type="reset" class="btn btn-default" value="Limpar" onclick=" ShowHideDIV('dvGrid'); ">
+                                    <input type="submit" class="btn btn-default" value="Exportar" name="button" />&nbsp;
+                                </div>
+                            </div>
+                            <div class="table-responsive col-lg-12" id="dvGrid" style=@ViewBag.MyInitialValue>
+                                @{
+                                    var cliente = Model;
+                                }
+
+                                @{
+                                    var grid = new WebGrid(cliente.ListaClientes, canPage: true, rowsPerPage: 10, selectionFieldName: "selectedRow", ajaxUpdateContainerId: "gridContent");}
+                                <div id="gridContent">
+                                    @if (cliente.ListaClientes.Count > 0)
+                                    {
+
+                                        @grid.GetHtml(mode: WebGridPagerModes.All, firstText: "<< Primeiro", previousText: "< Anterior", nextText: "Próximo >", lastText: "Último >>", tableStyle: "table table-bordered table-hover table-striped",
+                                        headerStyle: "header",
+                                        alternatingRowStyle: "alt",
+                                        selectedRowStyle: "select",
+                                        columns: grid.Columns(
+                                            grid.Column("CodigoCliente", " Código"),
+                                            grid.Column("Nome", " Nome"),
+                                            grid.Column("DescricaoSituacaoGrid", "Situação"),
+                                            grid.Column("AtivoGrid", "Ativo", style: "form-group col-lg-1"),
+                                            grid.Column("Editar", format: @<text>
+                                                @Html.Raw(@Html.ActionLink("[replacetext]", "RetornarPorId", new { Id = item.IdCliente }).ToHtmlString().Replace("[replacetext]", "<i class='fa fa-edit'></i>"))
+                                                </text>, style: "form-group col-lg-1"),
+                                            grid.Column("Excluir", format: @<text>
+                                                @Html.Raw(@Html.ActionLink("[replacetext]", "Excluir", new { Id = item.IdCliente, tipo = "Cliente" }).ToHtmlString().Replace("[replacetext]", "<i class='fa fa-trash-o'></i>"))
+                                                </text>, style: "form-group col-lg-1")
+                                                            ))
+                                        if (grid.HasSelection)
+                                        {
+                                            cliente = (Site.Areas.Cadastro.Models.ClienteViewModel)grid.Rows[grid.SelectedIndex].Value;
+                                            <b>Id</b> @cliente.IdCliente<br />
+                                            <b>Código</b> @cliente.CodigoCliente<br />
+                                            <b>Nome</b> @cliente.Nome<br />
+                                            <b>Situação</b>  @cliente.SituacaoCliente.Descricao<br />
+                                            <b>Ativo</b> @cliente.AtivoGrid<br />
+                                        }
+                                    }
+                                    else
+                                    {
+                                        <div class="alert alert-info col-lg-12">
+                                            <strong>Ops!</strong>
+                                            Nenhum Resultado Encontrado.
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /.container-fluid -->
+</div>
+<!-- /#page-wrapper -->
+<script>
+    function ShowHideDIV(nomeDiv) {
+        document.getElementById(nomeDiv).style.display = "none";
+    }
+</script>

@@ -1,0 +1,234 @@
+﻿@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Areas/Administrativa/Views/Shared/_Layout.cshtml";
+}
+@using Millenium.Util
+@model Site.Areas.Cadastro.Models.ClienteViewModel
+
+<div id="page-wrapper">
+    <div>
+        <!-- Page Heading -->
+        <div class="row">
+            <div class="col-lg-12">
+                <h3 class="page-header">
+                    Cliente
+                </h3>
+            </div>
+        </div>
+        <!-- /.row -->
+        <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+            <div class="panel-body">
+                <div class="form-group" style="text-align:right">
+                    @Html.ActionLink("Voltar", "Index", "Cliente", null, null)
+                </div>
+            </div>
+        </div>
+        @using (Html.BeginForm("Salvar", "Cliente", FormMethod.Post, new { enctype = "multipart/form-data", @class = "form-control-static col-md-12 center-block" }))
+        {
+            @Html.HiddenFor(m => m.IdCliente)
+            @Html.HiddenFor(m => m.TipoCliente.IdTipoCliente)
+            @Html.HiddenFor(m => m.SituacaoCliente.IdSituacaoCliente)
+            @Html.HiddenFor(m => m.TipoRazao)
+            @Html.HiddenFor(m => m.DataHoraCriacao)
+            @Html.HiddenFor(m => m.IdUsuarioCriacao)
+
+            <div class="alert alert-success alert-dismissable" style="@ViewBag.Mensagem">
+                <i class="fa fa-check"></i>
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                <b>Alerta!</b> Dados incluídos com sucesso! Clique no x para fechar.
+            </div>
+
+            <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                <div class="panel panel-primary">
+                    @****************Dados do Cliente*******************@
+                    <div class="panel-heading" role="tab" id="headingTwo">
+                        <h4 class="panel-title">
+                            <i class="fa fa-suitcase"></i>&nbsp;Dados do Cliente
+                        </h4>
+                    </div>
+                    <br />
+                    <div id="collapseTwo" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingTwo">
+                        <div class="panel-body">
+                            <hr />
+                            <h4 class="panel-title">
+                                <i class="fa fa-suitcase"></i>&nbsp;Dados do Cliente
+                            </h4>
+                            <br />
+                            <div class="form-group col-lg-3">
+                                <label>Código do Cliente</label>
+                                @Html.TextBoxFor(m => m.CodigoCliente, new { @class = "form-control", @maxlength = 25, onkeyup = "this.value = this.value.toUpperCase();" })
+                            </div>
+                            <div class="form-group has-error col-lg-3">
+                                <label>Tipo de Cliente</label>
+                                @Html.DropDownListFor(model => model.IdTipoCliente, Model.ListaTipoCliente, "SELECIONE", new { @class = "form-control", required = "required" }).DisableIf(() => Model.IdCliente != 0)
+                            </div>
+                            <div class="form-group col-lg-3">
+                                <label>Situação do Cliente</label>
+                                @Html.DropDownListFor(model => model.IdSituacaoCliente, Model.ListaSituacaoCliente, "SELECIONE", new { @class = "form-control", disabled = "disabled" })
+                            </div>
+                            <div class="form-group col-lg-3" @ViewBag.TipoRazao>
+                                @Html.RadioButtonFor(m => m.TipoRazao, false, new { id = "PessoaFisicaTrue", onchange = "ShowHideDIV('dvPessoaFisica', 'dvPessoaJuridica', 'false', 'PessoaFisicaTrue');" }).DisableIf(() => Model.IdCliente != 0)Pessoa Física&nbsp;
+                                @Html.RadioButtonFor(m => m.TipoRazao, true, new { id = "PessoaJuridicaTrue", onchange = "ShowHideDIV('dvPessoaJuridica', 'dvPessoaFisica', 'true', 'PessoaJuridicaTrue');" }).DisableIf(() => Model.IdCliente != 0)Pessoa Jurídica
+                            </div>
+                            <div class="form-group col-lg-12" id="dvPessoaFisica" style=@ViewBag.Pf>
+                                <div class="form-group has-error col-lg-10">
+                                    <label>Nome</label>
+                                    @Html.TextBoxFor(m => m.Nome, new { @class = "form-control", @maxlength = 255, onkeyup = "this.value = this.value.toUpperCase();" })
+                                </div>
+                                <div class="form-group has-error col-lg-4">
+                                    <label>Cpf</label>
+                                    @Html.TextBoxFor(m => m.Cpf, new { @class = "form-control", @maxlength = 14, onkeyup = "formataCPF(event);" })
+                                </div>
+                            </div>
+                            <div class="form-group col-lg-12" id="dvPessoaJuridica" style=@ViewBag.Pj>
+                                <div class="form-group has-error col-lg-10">
+                                    <label>Razão Social</label>
+                                    @Html.TextBoxFor(m => m.RazaoSocial, new { @class = "form-control", @maxlength = 255, onkeyup = "this.value = this.value.toUpperCase();" })
+                                </div>
+                                <div class="form-group has-error col-lg-10">
+                                    <label>Nome Fantasia</label>
+                                    @Html.TextBoxFor(m => m.NomeFantasia, new { @class = "form-control", @maxlength = 255, onkeyup = "this.value = this.value.toUpperCase();" })
+                                </div>
+                                <div class="form-group has-error col-lg-4">
+                                    <label>Cnpj</label>
+                                    @Html.TextBoxFor(m => m.Cnpj, new { @class = "form-control", @maxlength = 18, onkeyup = "formataCNPJ(event);" })
+                                </div>
+                            </div>
+                            <div class="form-group col-lg-12">
+                                <div class="form-group has-error col-lg-12">
+                                    <label>Email Principal</label>
+                                    @Html.TextBoxFor(m => m.EmailPrincipal, new { @class = "form-control", @maxlength = 255, required = "required" })
+                                </div>
+                                <div class="form-group has-error col-lg-3">
+                                    <label>Telefone Principal</label>
+                                    @Html.TextBoxFor(m => m.TelefonePrincipal, new { @class = "form-control", @maxlength = 15, onkeyup = "formataCelular(event);", required = "required" })
+                                </div>
+                                <div class="form-group col-lg-3">
+                                    <label>Ramal do Telefone Principal</label>
+                                    @Html.TextBoxFor(m => m.RamalPrincipal, new { @class = "form-control", @maxlength = 5, onkeyup = "formataInteiro(event);" })
+                                </div>
+                                <div class="form-group col-lg-3">
+                                    <label>Telefone Secundário</label>
+                                    @Html.TextBoxFor(m => m.TelefoneSecundario, new { @class = "form-control", @maxlength = 15, onkeyup = "formataCelular(event);" })
+                                </div>
+                                <div class="form-group col-lg-3">
+                                    <label>Ramal do Telefone Secundáriol</label>
+                                    @Html.TextBoxFor(m => m.RamalSecundario, new { @class = "form-control", @maxlength = 5, onkeyup = "formataInteiro(event);" })
+                                </div>
+                            </div>                            
+                            <div class="form-group col-lg-12">
+                                <label class="checkbox-inline">
+                                    @Html.CheckBoxFor(m => m.Ativo, new { @class = "checkbox", @maxlength = 8 })
+                                    <label>Ativo</label>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="collapseTwo" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingTwo">
+                        <div class="panel-body">
+                            <hr />
+                            <h4 class="panel-title">
+                                <i class="fa fa-map-marker"></i>&nbsp;Endereço
+                            </h4>
+                            <br />
+                            @Html.Partial("Endereco", Model.EnderecoViewModel)
+                        </div>
+                    </div>
+                    <div id="collapseTwo" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingTwo">
+                        <div class="panel-body">
+                            <hr />
+                            @*********************Dados de Contato da Empresa*********************@
+                            <h4 class="panel-title">
+                                <i class="fa fa-phone"></i>&nbsp;Dados de Contato da Empresa
+                            </h4>
+                            <br />
+                            @Html.Partial("Contato", Model.ContatoViewModel)                            
+                        </div>
+                    </div>
+                    <div id="collapseTwo" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingTwo">
+                        <div class="panel-body">
+                            <hr />
+                            @*********************Dados de Faturamento*********************@
+                            <h4 class="panel-title">
+                                <i class="fa fa-money"></i>&nbsp;Dados de Faturamento
+                            </h4>
+                            <br />
+                            <div class="form-group has-error col-lg-2">
+                                <label>Dia do Vencimento</label>
+                                @Html.TextBoxFor(m => m.DiaVencimento, new { @class = "form-control" })
+                            </div>
+                            <div class="form-group col-lg-12">
+                                <label class="checkbox-inline">
+                                    @Html.CheckBoxFor(m => m.FaturaEmail, new { @class = "checkbox", @maxlength = 8 })
+                                    <label>Enviar Fatura por Email?</label>
+                                </label>
+                            </div>
+                            <div class="form-group col-lg-12">
+                                <label>Observações</label>
+                                @Html.TextAreaFor(m => m.Observacao, new { @class = "form-control", @maxlength = 1000, @style = "height: 100px", onkeyup = "this.value = this.value.toUpperCase();" })
+                            </div>
+                            <br />
+                            <div class="form-group col-lg-12" style="text-align: right">
+                                <input type="reset" name="limpar" class="btn btn-default" value="Limpar" id="limpar" formnovalidate />
+                                <input type="submit" name="salvar" class="btn btn-default" value="Salvar" id="Salvar" />
+                            </div>
+                        </div>
+                    </div>
+                    @*<div id="collapseTwo" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingTwo">
+                            <div class="panel-body">
+                                <hr />
+                                <h4 class="panel-title">
+                                    <i class="fa fa-gears"></i>&nbsp;Tipo de Solicitação
+                                </h4>
+                                <br />
+                                <div class="form-group col-lg-3">
+                                    <label>Tipo de Solicitação</label>
+                                    @Html.DropDownListFor(model => model.IdTipoSolicitacao, Model.ListaTipoSolicitacao, "SELECIONE", new { @class = "form-control" })
+                                </div>
+                                <div class="form-group has-error col-lg-2">
+                                    <label>Preço da Pesquisa</label>
+                                    @Html.TextBoxFor(m => m.Preco, new { @class = "form-control", @maxlength = 5, onkeyup = "formataMoeda(event);", required = "required" })
+                                </div>
+                                <div class="form-group col-lg-12">
+                                    @Html.Partial("Solicitacao", Model.TipoSolicitacaoViewModel)
+                                </div>
+                            </div>
+                        </div>*@
+                </div>
+                <br />
+            </div>
+        }
+
+    </div>
+    <!-- /.container-fluid -->
+</div>
+<!-- /#page-wrapper -->
+
+<script>
+    function ShowHideDIV(nomeDiv, nomeDiv2, valor, elem) {
+        valor = document.getElementById(elem).value;
+        if (valor === "True") {
+            document.getElementById(nomeDiv).style.display = "block";
+            document.getElementById(nomeDiv2).style.display = "none";
+            document.getElementById("Nome").value = "";
+            document.getElementById("Cpf").value = "";
+            document.getElementById("RazaoSocial").required = true;
+            document.getElementById("NomeFantasia").required = true;
+            document.getElementById("Cnpj").required = true;
+            document.getElementById("Nome").required = false;
+            document.getElementById("Cpf").required = false;
+        }
+        else {
+            document.getElementById(nomeDiv).style.display = "block";
+            document.getElementById(nomeDiv2).style.display = "none";
+            document.getElementById("RazaoSocial").value = "";
+            document.getElementById("NomeFantasia").value = "";
+            document.getElementById("Cnpj").value = "";
+            document.getElementById("Nome").required = true;
+            document.getElementById("Cpf").required = true;
+            document.getElementById("RazaoSocial").required = false;
+            document.getElementById("NomeFantasia").required = false;
+            document.getElementById("Cnpj").required = false;
+        }
+    }
+</script>

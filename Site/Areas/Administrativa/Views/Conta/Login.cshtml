@@ -1,0 +1,69 @@
+﻿@model Site.Areas.Administrativa.Models.LoginModels
+@{
+    Layout = null;
+}
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <title>Área de Registro</title>
+    <meta name="generator" content="Bootply" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link href="~/css/bootstrap.min.css" rel="stylesheet" />
+    <!--[if lt IE 9]>
+        <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link href="~/Content/Login/styles.css" rel="stylesheet" />
+</head>
+
+@using (Html.BeginForm("Autenticar", "Conta"))
+{
+    @Html.ValidationSummary(true)
+
+    <body>
+        <!--login modal-->
+        <div id="loginModal" class="modal show" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        @*<h1 class="text-center">Login</h1>*@
+                        <img src="/img/millenium/logo_cliente_login.png" width="224" height="100">
+                    </div>
+                    <div class="modal-body">
+                        <form class="form-control-static col-md-12 center-block">
+                            <div class="form-group">
+                                @Html.TextBoxFor(m => m.Login, new { @class = "form-control input-lg", @placeholder = "Usuário", @maxlength = 50 })
+                                <div class="error">@Html.ValidationMessageFor(m => m.Login)</div>
+                            </div>
+                            <div class="form-group">
+                                @Html.PasswordFor(m => m.Senha, new { @class = "form-control input-lg", @placeholder = "Senha", @Textmode = "Password", @maxlength = 8 })
+                                <div class="error">@Html.ValidationMessageFor(m => m.Senha)</div>
+                            </div>
+                            <div class="form-group">
+                                <input type="submit" class="btn btn-primary btn-lg btn-block" value="Entrar" />
+                                <br />
+                                <div class="error">@ViewBag.Mensagem</div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <div class="col-md-12">
+                            <button id="btnCancelar" class="btn" data-dismiss="modal" aria-hidden="true" onclick="window.close()">Cancelar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- script references -->
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
+        <script src="~/js/bootstrap.js"></script>
+    </body>
+}
+</html>
+
+<script language="javascript">
+    window.history.forward(1);
+</script>

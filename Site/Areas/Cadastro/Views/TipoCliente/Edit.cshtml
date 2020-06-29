@@ -1,0 +1,61 @@
+﻿@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Areas/Administrativa/Views/Shared/_Layout.cshtml";
+}
+@model Site.Areas.Cadastro.Models.TipoClienteViewModel
+
+<div id="page-wrapper">
+    <div>
+        <!-- Page Heading -->
+        <div class="row">
+            <div class="col-lg-12">
+                <h3 class="page-header">
+                    Tipo de Cliente
+                </h3>
+            </div>
+        </div>
+        <!-- /.row -->
+
+        <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+            <div class="panel-body">
+                <div class="form-group" style="text-align:right">
+                    @Html.ActionLink("Voltar", "Index", "TipoCliente", null, null)
+                </div>
+            </div>
+        </div>
+
+        <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+            <div class="panel panel-primary">
+                <div class="panel-heading" role="tab" id="headingOne">
+                    <h4 class="panel-title">
+                        <i class="fa fa-pencil"></i>&nbsp;Cadastro & Edição
+                    </h4>
+                </div>
+                <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+                    <div class="panel-body">
+                        @using (Html.BeginForm("SalvarTipoCliente", "TipoCliente", FormMethod.Post, new { enctype = "multipart/form-data", @class = "form-control-static col-md-6 center-block" }))
+                        {
+                            @Html.HiddenFor(m => m.IdTipoCliente)
+                            <div class="form-group has-error col-lg-12">
+                                <label>Descrição</label>
+                                @Html.TextBoxFor(m => m.Descricao, new { @class = "form-control", @maxlength = 255, onkeyup = "this.value = this.value.toUpperCase();", required = "required" })
+                            </div>
+                            <div class="form-group col-lg-12">
+                                <label class="checkbox-inline">
+                                    @Html.CheckBoxFor(m => m.Ativo, new { @class = "checkbox", @maxlength = 8, required = "required" })
+                                    <label>Ativo</label>
+                                </label>
+                            </div>
+                            <div class="form-group" style="text-align:right">
+                                <input type="reset" class="btn btn-default" value="Limpar">&nbsp;
+                                <input type="submit" class="btn btn-default" value="Salvar" id="Salvar" />
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /.container-fluid -->
+</div>
+<!-- /#page-wrapper -->

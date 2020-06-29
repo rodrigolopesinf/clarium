@@ -1,0 +1,14 @@
+Login: cpbarbosa
+Email: rodrigolopesinf@gmail.com
+Senha: Palio%1998
+
+Conta Hospedagem: celsobarbosa-001
+
+FTP Endereço:FTP.SITE4NOW.NET
+FTP Nome de usuário:cpbarbosa-001
+Senha: porr@131710
+
+DNS: ns1.site4now.net, ns2.site4now.net, ns3.site4now.net
+
+Email: clientes@clarium.net.br
+Senha: palio@1998

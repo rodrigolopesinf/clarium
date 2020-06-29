@@ -1,0 +1,175 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Administrativa/Views/Shared/_Layout.cshtml";
+}
+@model Site.Areas.Faturamento.Models.FaturamentoViewModel
+<style>
+    .ui-datepicker-calendar {
+        display: none;
+    }
+</style>
+
+<div id="page-wrapper">
+    <div>
+        <!-- Page Heading -->
+        <div class="row">
+            <div class="col-lg-12">
+                <h3 class="page-header">
+                    Faturamento
+                </h3>
+            </div>
+        </div>
+        <!-- /.row -->
+
+        <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+            <div class="panel panel-primary">
+                <div class="panel-heading" role="tab" id="headingTwo">
+                    <h4 class="panel-title">
+                        <i class="fa fa-search"></i>&nbsp;Gerar Faturamento
+                    </h4>
+                </div>
+                <div id="collapseTwo" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingTwo">
+                    <div class="panel-body">
+                        <form action='@Url.Action("Gerar", "Gerar")' method="get" class="form-control-static col-md-12 center-block">
+                            <div class="form-group col-lg-12">
+                                <div class="form-group col-lg-12">
+                                    <label>Tipo de Faturamento</label>&nbsp;
+                                    @Html.RadioButtonFor(m => m.TipoFaturamento, false, new {id = "TipoFaturamentoFalse", onchange = "ShowHideDIV2('dvTipo', 'false', 'TipoFaturamentoFalse');"})Cliente&nbsp;
+                                    @Html.RadioButtonFor(m => m.TipoFaturamento, true, new {id = "TipoFaturamentoTrue", onchange = "ShowHideDIV2('dvTipo', 'true', 'TipoFaturamentoTrue');"})Todos
+                                </div>
+                                <div class="form-group has-error col-lg-6" id="dvTipo" style=@ViewBag.Nome>
+                                    <label>Nome / Nome Fantasia</label>
+                                    <input type="text" id="IdsClientes" name="IdsClientes" class="form-control col-lg-3" onkeyup=" this.value = this.value.toUpperCase(); " data-ids="@Json.Encode(Model.ListaClientes.Select(a => new {id = a.IdCliente, name = a.Nome}))">
+                                </div>
+                                <div class="form-group has-error col-lg-4">
+                                    <label>Mês / Ano</label>
+                                    @Html.TextBoxFor(m => m.DataInicioString, new {id = "mes", @class = "date-picker form-control", name = "mes", @maxlength = 50, onkeyup = "formataData(event);", required = "required"})
+                                </div>
+                            </div>
+                            <div class="form-group col-lg-12">
+                                <div class="form-group col-lg-3">
+                                    <label>Gerar</label><br/>
+                                    <input type="submit" class="btn btn-default col-lg-12" value="Gerar" name="button"/>&nbsp;
+                                </div>
+                                <div class="form-group col-lg-3">
+                                    <label>Demonstrativo de Doses</label><br/>
+                                    <input type="submit" class="btn btn-default col-lg-12" value="Gerar Demonstrativo" name="button"/>&nbsp;
+                                </div>
+                                <div class="form-group col-lg-3">
+                                    <label>Exportar Consolidados</label><br />
+                                    <input type="submit" class="btn btn-default col-lg-12" value="Exportar" name="button" />&nbsp;
+                                </div>
+                                <div class="form-group col-lg-3" style=@ViewBag.Consolidar>
+                                    <label>Consolidar</label><br/>
+                                    <input type="submit" class="btn btn-default col-lg-12" value="Consolidar" name="button" formnovalidate/>&nbsp;
+                                </div>
+                            </div>
+                            <div class="table-responsive col-lg-12" id="dvGrid" style=@ViewBag.MyInitialValue>
+                                @{
+                                    var faturamento = Model;
+                                }
+
+                                @{
+                                    var grid = new WebGrid(faturamento.ListaFaturamentos, canPage: true, rowsPerPage: 10, selectionFieldName: "selectedRow", ajaxUpdateContainerId: "gridContent");}
+                                <div id="gridContent">
+                                    @if (faturamento.ListaFaturamentos.Count > 0)
+                                    {
+
+                                        @grid.GetHtml(mode: WebGridPagerModes.All, firstText: "<< Primeiro", previousText: "< Anterior", nextText: "Próximo >", lastText: "Último >>", tableStyle: "table table-bordered table-hover table-striped",
+                                        headerStyle: "header",
+                                        alternatingRowStyle: "alt",
+                                        selectedRowStyle: "select",
+                                        columns: grid.Columns(
+                                            grid.Column("CodigoCliente", " Código"),
+                                            grid.Column("NomeCliente", " Cliente"),
+                                            grid.Column("QuantidadeDosesSimples", " Simples"),
+                                            grid.Column("QuantidadeDosesDuplas", " Duplas"),
+                                            grid.Column("QuantidadeDosesTeste", " Teste"),
+                                            grid.Column("Cliente.QuantidadeCortesia", " Cortesia"),
+                                            grid.Column("PrecoString", " Preço"),
+                                            grid.Column("ValorTotalString", " Valor Total", style: "form-group col-lg-1"),
+                                            grid.Column("Consolidado", format: @<text>
+                                                @(item.Consolidado ? Html.Raw(@Html.Raw(@Html.ActionLink("[replacetext]", "", new { Id = item.IdFaturamento }).ToHtmlString().Replace("[replacetext]", "<span class='label label-success'><i disabled='disabled' class='fa fa-thumbs-up'></i></span>"))) : Html.Raw(@Html.Raw(@Html.ActionLink("[replacetext]", "", new { Id = item.IdFaturamento }).ToHtmlString().Replace("[replacetext]", "<span disabled='disabled' class='label label-danger'><i class='fa fa-thumbs-down'></i></span>"))))
+                                            </text>, style: "form-group col-lg-1")
+                                                                                      ))
+                                        if (grid.HasSelection)
+                                        {
+                                            faturamento = (Site.Areas.Faturamento.Models.FaturamentoViewModel)grid.Rows[grid.SelectedIndex].Value;
+                                            <b>Id</b>@faturamento.Cliente.IdCliente<br />
+                                            <b>Nome do Cliente</b>@faturamento.NomeCliente<br/>
+                                            <b>Quantidade Doses Simples</b>@faturamento.QuantidadeDosesSimples<br/>
+                                            <b>Quantidade Doses Duplas</b>@faturamento.QuantidadeDosesDuplas<br/>
+                                            <b>Quantidade Doses Teste</b>@faturamento.QuantidadeDosesTeste<br/>
+                                            <b>Quantidade de Cortesia</b>@faturamento.Cliente.QuantidadeCortesia<br/>
+                                            <b>Preço da Dose</b> @faturamento.Cliente.PrecoDose<br />
+                                            <b>Valor Total</b>@faturamento.ValorTotal<br/>
+                                            
+                                        }
+                                    }
+                                    else
+                                    {
+                                        <div class="alert alert-info col-lg-12">
+                                            <strong>Ops!</strong>
+                                            Nenhum Resultado Encontrado.
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /.container-fluid -->
+</div>
+<!-- /#page-wrapper -->
+<script>
+    function ShowHideDIV2(nomeDiv, valor, elem) {
+        valor = document.getElementById(elem).value;
+        if (valor === "True") {
+            document.getElementById(nomeDiv).style.display = "none";
+            document.getElementById("IdsClientes").required = false;
+            document.getElementById("mes").value = "";
+            document.getElementById("IdsClientes").value = "";
+        }
+        else {
+            document.getElementById(nomeDiv).style.display = "block";
+            document.getElementById("IdsClientes").required = true;
+            document.getElementById("mes").value = "";
+            document.getElementById("IdsClientes").value = "";
+        }
+    }
+    $(function () {
+        $('#IdsClientes').tokenInput("@Url.Action("GetClientes")", {
+            method: "GET",
+            theme: "facebook",
+            hintText: "Escolha um Cliente.",
+            noResultsText: "Não encontrado.",
+            searchingText: "Buscando...",
+            tokenValue: "id",
+            preventDuplicates: true,
+            tokenLimit: 1,
+            prePopulate: $('#IdsClientes').data('ids')
+        });
+    });
+
+    $(function () {
+        $('.date-picker').datepicker({
+            monthNames: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
+            monthNamesShort: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],
+            changeMonth: true,
+            changeYear: true,
+            dateFormat: 'MM yy',
+            onClose: function (dateText, inst) {
+                var month = $("#ui-datepicker-div .ui-datepicker-month :selected").val();
+                var year = $("#ui-datepicker-div .ui-datepicker-year :selected").val();
+                $(this).datepicker('setDate', new Date(year, month, 1));
+
+            }
+        });
+        $(".selector").datepicker("option", "showButtonPanel", true);
+    });
+
+</script>
+

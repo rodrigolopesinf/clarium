@@ -1,0 +1,111 @@
+﻿@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Areas/Administrativa/Views/Shared/_Layout.cshtml";
+}
+@model Site.Areas.Pesquisa.Models.SolicitacaoViewModel
+
+<div id="page-wrapper">
+    <div>
+        <!-- Page Heading -->
+        <div class="row">
+            <div class="col-lg-12">
+                <h3 class="page-header">
+                    Solicitação
+                </h3>
+            </div>
+        </div>
+        <!-- /.row -->
+
+        <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+            <div class="panel-body">
+                <div class="form-group" style="text-align:right">
+                    @Html.ActionLink("Voltar", "Index", "Solicitacao", null, null)
+                </div>
+            </div>
+        </div>
+
+        <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+            <div class="panel panel-primary">
+                <div class="panel-heading" role="tab" id="headingOne">
+                    <h4 class="panel-title">
+                        <i class="fa fa-pencil"></i>&nbsp;Cadastro & Edição
+                    </h4>
+                </div>
+                <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+                    <div class="panel-body">
+                        @using (Html.BeginForm("SalvarSolicitacao", "Solicitacao", FormMethod.Post, new { enctype = "multipart/form-data", @class = "form-control-static col-md-10 center-block" }))
+                        {
+                            @Html.HiddenFor(m => m.IdSolicitacao)
+                            @Html.HiddenFor(m => m.DataHoraCriacao)
+                            @Html.HiddenFor(m => m.IdUsuarioCriacao)
+                            @Html.HiddenFor(m => m.NumeroSequencial)
+                            <div class="form-group col-lg-12">
+                                <hr />
+                                <h4 class="panel-title">
+                                    <i class="fa fa-book"></i>&nbsp;Dados da Pesquisa
+                                </h4>
+                                <br />
+                                <div class="form-group has-error col-lg-12">
+                                    <label>Número da Solicitação</label>
+                                    @Html.TextBoxFor(m => m.NumeroSequencial, new { @class = "form-control", @maxlength = 255, disabled = "disabled", onkeyup = "this.value = this.value.toUpperCase();" })
+                                </div>
+                                <br />
+                                <div class="form-group has-error col-lg-6">
+                                    <label>Cliente</label>
+                                    @Html.DropDownListFor(model => model.IdCliente, Model.ListaCliente, "SELECIONE", new { @class = "form-control", required = "required" })
+                                </div>
+                                <div class="form-group col-lg-6">
+                                    <label>Tipo de Solicitação</label>
+                                    @Html.DropDownListFor(model => model.IdTipoSolicitacao, Model.ListaTipoSolicitacao, "SELECIONE", new { @class = "form-control", required = "required" })
+                                </div>
+                            </div>
+                            <div class="form-group col-lg-12">
+                                <div class="form-group has-error col-lg-6">
+                                    <label>Nome</label>
+                                    @Html.TextBoxFor(m => m.Nome, new { @class = "form-control", @maxlength = 255, onkeyup = "this.value = this.value.toUpperCase();" })
+                                </div>
+                                <div class="form-group has-error col-lg-4">
+                                    <label>Data de Nascimento</label>
+                                    @Html.TextBoxFor(m => m.DataNascimentoView, new { @class = "form-control", @maxlength = 10, onkeyup = "formataData(event);" })
+                                </div>
+                            </div>
+                            <div class="form-group col-lg-12">
+                                <div class="form-group has-error col-lg-4">
+                                    <label>Cpf</label>
+                                    @Html.TextBoxFor(m => m.Cpf, new { @class = "form-control", @maxlength = 14, onkeyup = "formataCPF(event);" })
+                                </div>
+                                <div class="form-group has-error col-lg-4">
+                                    <label>RG</label>
+                                    @Html.TextBoxFor(m => m.Rg, new { @class = "form-control", @maxlength = 9, onkeyup = "formataNumero(event);" })
+                                </div>
+                            </div>
+                            <div class="form-group col-lg-12">
+                                <div class="form-group has-error col-lg-4">
+                                    <label>Nome do Pai</label>
+                                    @Html.TextBoxFor(m => m.Pai, new { @class = "form-control", @maxlength = 255, onkeyup = "this.value = this.value.toUpperCase();" })
+                                </div>
+                                <div class="form-group has-error col-lg-4">
+                                    <label>Nome da Mãe</label>
+                                    @Html.TextBoxFor(m => m.Mae, new { @class = "form-control", @maxlength = 255, onkeyup = "this.value = this.value.toUpperCase();" })
+                                </div>
+                            </div>
+                            <div class="form-group col-lg-12">
+                                <hr />
+                                <h4 class="panel-title">
+                                    <i class="fa fa-map-marker"></i>&nbsp;Endereço
+                                </h4>
+                                <br />
+                                @Html.Partial("~/Areas/Cadastro/Views/Cliente/Endereco.cshtml", Model.EnderecoViewModel)
+                            </div>
+                            <div class="form-group" style="text-align:right">
+                                <input type="reset" class="btn btn-default" value="Limpar">&nbsp;
+                                <input type="submit" class="btn btn-default" value="Salvar" id="Salvar" />
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /.container-fluid -->
+    </div>
+    <!-- /#page-wrapper -->

@@ -1,0 +1,140 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{90DD9785-CD3D-43FA-9A4A-5E2E5C748E39}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Millenium.Domain</RootNamespace>
+    <AssemblyName>Millenium.Domain</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.WebForms, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Entity\Cliente.cs" />
+    <Compile Include="Entity\Contato.cs" />
+    <Compile Include="Entity\ContatoCliente.cs" />
+    <Compile Include="Entity\Endereco.cs" />
+    <Compile Include="Entity\FaturadoMes.cs" />
+    <Compile Include="Entity\Faturamento.cs" />
+    <Compile Include="Entity\Menu.cs" />
+    <Compile Include="Entity\MenuEntity.cs" />
+    <Compile Include="Entity\MenuUsuario.cs" />
+    <Compile Include="Entity\Nivel.cs" />
+    <Compile Include="Entity\SituacaoCliente.cs" />
+    <Compile Include="Entity\TipoCliente.cs" />
+    <Compile Include="Entity\TipoSolicitacao.cs" />
+    <Compile Include="Entity\Usuario.cs" />
+    <Compile Include="Enums\MesEnum.cs" />
+    <Compile Include="Interfaces\Repositories\IClienteRepository.cs" />
+    <Compile Include="Interfaces\Repositories\IContatoClienteRepository.cs" />
+    <Compile Include="Interfaces\Repositories\IContatoRepository.cs" />
+    <Compile Include="Interfaces\Repositories\IEnderecoRepository.cs" />
+    <Compile Include="Interfaces\Repositories\IFaturamentoRepository.cs" />
+    <Compile Include="Interfaces\Repositories\IMenuRepository.cs" />
+    <Compile Include="Interfaces\Repositories\IMenuUsuarioRepository.cs" />
+    <Compile Include="Interfaces\Repositories\INivelRepository.cs" />
+    <Compile Include="Interfaces\Repositories\IRepositoryBase.cs" />
+    <Compile Include="Interfaces\Repositories\ISituacaoClienteRepository.cs" />
+    <Compile Include="Interfaces\Repositories\ISolicitacaoRepository.cs" />
+    <Compile Include="Interfaces\Repositories\ITipoClienteRepository.cs" />
+    <Compile Include="Interfaces\Repositories\ITipoSolicitacaoRepository.cs" />
+    <Compile Include="Interfaces\Repositories\IUsuarioRepository.cs" />
+    <Compile Include="Interfaces\Services\IClienteService.cs" />
+    <Compile Include="Interfaces\Services\IContatoClienteService.cs" />
+    <Compile Include="Interfaces\Services\IContatoService.cs" />
+    <Compile Include="Interfaces\Services\IEnderecoService.cs" />
+    <Compile Include="Interfaces\Services\IFaturamentoService.cs" />
+    <Compile Include="Interfaces\Services\IMenuService.cs" />
+    <Compile Include="Interfaces\Services\IMenuUsuarioService.cs" />
+    <Compile Include="Interfaces\Services\INivelService.cs" />
+    <Compile Include="Interfaces\Services\ISituacaoClienteService.cs" />
+    <Compile Include="Interfaces\Services\ISolicitacaoService.cs" />
+    <Compile Include="Interfaces\Services\ITipoClienteService.cs" />
+    <Compile Include="Interfaces\Services\ITipoSolicitacaoService.cs" />
+    <Compile Include="Interfaces\Services\IUsuarioService.cs" />
+    <Compile Include="Response\UsuarioResponse.cs" />
+    <Compile Include="Services\ClienteService.cs" />
+    <Compile Include="Interfaces\Services\IServiceBase.cs" />
+    <Compile Include="Services\ContatoClienteService.cs" />
+    <Compile Include="Services\ContatoService.cs" />
+    <Compile Include="Services\EnderecoService.cs" />
+    <Compile Include="Services\FaturamentoService.cs" />
+    <Compile Include="Services\MenuService.cs" />
+    <Compile Include="Services\MenuUsuarioService.cs" />
+    <Compile Include="Services\NivelService.cs" />
+    <Compile Include="Services\ServiceBase.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\SituacaoClienteService.cs" />
+    <Compile Include="Services\SolicitacaoService.cs" />
+    <Compile Include="Services\TipoClienteService.cs" />
+    <Compile Include="Services\TipoSolicitacaoService.cs" />
+    <Compile Include="Services\UsuarioService.cs" />
+    <Compile Include="Entity\Solicitacao.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Reports\Reports.csproj">
+      <Project>{06a39ec9-e9a2-4ad6-9b22-4babee7cdd27}</Project>
+      <Name>Reports</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Millenium.Util\Millenium.Util.csproj">
+      <Project>{42a5a316-156b-48f3-9c64-dff7a9aae750}</Project>
+      <Name>Millenium.Util</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

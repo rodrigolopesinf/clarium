@@ -1,0 +1,41 @@
+﻿@{
+    ViewBag.Title = "Sucesso";
+    Layout = "~/Areas/Administrativa/Views/Shared/_Layout.cshtml";
+}
+
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <ol class="breadcrumb">
+        <li><i class="fa fa-dashboard"></i>@Html.RouteLink("Home", "Administrativa_default", new { controller = "Home", action = "Index" })</li>
+        <li class="active">Cadastro</li>
+    </ol>
+    <h1>
+        @ViewBag.NomeTela
+    </h1>
+</section>
+<!-- Main content -->
+<section class="content">
+    <div class="row">
+        <!-- left column -->
+        <div class="col-md-10">
+            <!-- general form elements -->
+            <div class="box box-primary">
+                <div class="box box-primary" align="right">
+                    <a href=@ViewBag.ActionVoltar>Voltar</a>&nbsp;
+                </div><!-- /.box-header -->
+                <div class="panel-body">
+                    <form class="form-control-static col-md-12 center-block">
+                        <div class="form-group has-success col-lg-12">
+                            <div class="alert alert-success">
+                                <h4><label class="control-label">@ViewBag.Mensagem</label></h4>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="box box-primary" align="right">
+                    <a href=@ViewBag.NovoRegistro>Adicionar Novo</a>&nbsp;
+                </div><!-- /.box-header -->
+            </div><!-- /.box -->
+        </div><!--/.col (left) -->
+    </div>   <!-- /.row -->
+</section><!-- /.content -->

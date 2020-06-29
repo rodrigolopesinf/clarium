@@ -1,0 +1,25 @@
+﻿@using Millenium.Util
+@model Site.Areas.Cadastro.Models.ContatoViewModel
+
+@Html.HiddenFor(m => m.Contato.IdContato)
+
+<div class="form-group has-error col-lg-10">
+    <label>Nome</label>
+    @Html.TextBoxFor(m => m.Contato.Nome, new { @class = "form-control", @maxlength = 30, onkeyup = "this.value = this.value.toUpperCase();", required = "required" })
+</div>
+<div class="form-group has-error col-lg-3">
+    <label>Celular</label>
+    @Html.TextBoxFor(m => m.Contato.Celular, new { @class = "form-control", @maxlength = 15, onkeyup = "formataCelular(event);", required = "required" })
+</div>
+<div class="form-group col-lg-3">
+    <label>Celular Secundário</label>
+    @Html.TextBoxFor(m => m.Contato.CelularSecundario, new { @class = "form-control", @maxlength = 15, onkeyup = "formataCelular(event);" })
+</div>
+<div class="form-group has-error col-lg-6">
+    <label>Email</label>
+    @Html.TextBoxFor(m => m.Contato.Email, new { @class = "form-control", @maxlength = 255, required = "required" })
+</div>
+<div class="form-group col-lg-6">
+    <label>Site</label>
+    @Html.TextBoxFor(m => m.Contato.Site, new { @class = "form-control", @maxlength = 255 })
+</div>

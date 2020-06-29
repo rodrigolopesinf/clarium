@@ -1,0 +1,44 @@
+﻿@using Millenium.Util
+@model Site.Areas.Cadastro.Models.TipoSolicitacaoViewModel
+
+<div class="table-responsive col-lg-12">
+    @{
+        var tipoSolicitacao = Model;
+    }
+
+    @{
+        var grid = new WebGrid(tipoSolicitacao.ListaTipoSolicitacoes, canPage: true, rowsPerPage: 5, selectionFieldName: "selectedRow", ajaxUpdateContainerId: "gridTipoSolicitacao");}
+    <div id="gridMaquinas">
+        @if (tipoSolicitacao.ListaTipoSolicitacoes.Count > 0)
+        {
+            @grid.GetHtml(mode: WebGridPagerModes.All, firstText: "<< Primeiro", previousText: "< Anterior", nextText: "Próximo >", lastText: "Último >>", tableStyle: "table table-bordered table-hover table-striped",
+                           headerStyle: "header",
+                           alternatingRowStyle: "alt",
+                           selectedRowStyle: "select",
+                           columns: grid.Columns(
+                               grid.Column("NumeroIdentificacao", "Código", style: "form-group col-lg-1"),
+                               grid.Column("DescricaoModelo", "Modelo"),
+                               grid.Column("Endereco", "Endereço"),
+                               grid.Column("Endereço", format: @<text>
+                                @(item.ExisteEndereco != false ? Html.Raw(@Html.Raw(@Html.ActionLink("[replacetext]", "RedirecionarTipoSolicitacao", new { Id = item.IdMaquina }).ToHtmlString().Replace("[replacetext]", "<span class='label label-success'><i class='fa fa-check-square-o'></i>&nbsp;Editar</span>"))) : Html.Raw(@Html.Raw(@Html.ActionLink("[replacetext]", "RedirecionarTipoSolicitacao", new { Id = item.Id }).ToHtmlString().Replace("[replacetext]", "<span class='label label-danger'><i class='fa fa-plus-square'></i>&nbsp;Cadastrar</span>"))))
+                            </text>)
+                                                                                                                                                              ))
+            if (grid.HasSelection)
+            {
+                tipoSolicitacao = (Site.Areas.Cadastro.Models.TipoSolicitacaoViewModel)grid.Rows[grid.SelectedIndex].Value;
+                <b>Id</b>@tipoSolicitacao.Id<br />
+                <b>Descrição</b>@tipoSolicitacao.Descricao<br />
+                <b>Preço</b>@tipoSolicitacao.Preco<br />
+                <b>Endereço</b>@tipoSolicitacao.AtivoGrid<br />
+            }
+        }
+        else
+        {
+            <div class="alert alert-warning alert-dismissable">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                <h4><i class="icon fa fa-warning"></i> Alerta!</h4>
+                Este cliente ainda não possui tipos de solicitação associados.
+            </div>
+        }
+    </div>
+</div>
