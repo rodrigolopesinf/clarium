@@ -44,7 +44,7 @@ namespace Site.Areas.Pesquisa.Controllers
 
         public ActionResult Index()
         {
-            var vm = new SolicitacaoViewModel();
+            var vm = new SolicitacaoViewModel();            
             Session["ListaExportacaoSolicitacao"] = new List<SolicitacaoViewModel>();
             @ViewBag.MyInitialValue = "display:none";
             return View("Index", vm);
@@ -54,6 +54,7 @@ namespace Site.Areas.Pesquisa.Controllers
         public ActionResult Edit()
         {
             var vm = new SolicitacaoViewModel();
+            vm.Status = "Pendente";
             vm = CarregarDropDownList(vm, true);
             return View("Edit", vm);
         }
@@ -110,6 +111,7 @@ namespace Site.Areas.Pesquisa.Controllers
 
             PreencherEndereco(vm, obj);
 
+            vm.Status = obj.Resposta != string.Empty ? "Concluído" : "Pendente";
             vm.IdSolicitacao = obj.IdSolicitacao;
             vm.IdCliente = (int)obj.IdCliente;
             vm.Cpf = obj.Cpf;
@@ -122,6 +124,8 @@ namespace Site.Areas.Pesquisa.Controllers
             vm.DataHoraCriacao = obj.DataHoraCriacao;
             vm.IdUsuarioCriacao = obj.IdUsuarioCriacao;
             vm.NumeroSequencial = obj.NumeroSequencial;
+            vm.Local = obj.Local;
+            vm.Resposta = obj.Resposta;
 
             vm = CarregarDropDownList(vm, false, (int)obj.IdCliente, obj.IdTipoSolicitacao);
 
@@ -139,7 +143,7 @@ namespace Site.Areas.Pesquisa.Controllers
             vm.EnderecoViewModel.Endereco.Cidade = endereco.Cidade;
             vm.EnderecoViewModel.Endereco.Estado = endereco.Estado;
             vm.EnderecoViewModel.DescricaoBairro = endereco.Bairro;
-            vm.EnderecoViewModel.Valida = true;
+            vm.EnderecoViewModel.Valida = false;
         }
 
         [HttpPost]
@@ -292,7 +296,7 @@ namespace Site.Areas.Pesquisa.Controllers
             foreach (var obj in listaCliente)
             {
                 vm.IdCliente = obj.IdCliente;
-                vm.NomeCliente = obj.Cnpj != null ? obj.NomeFantasia : obj.Nome;
+                vm.NomeCliente = obj.CodigoCliente + " - " + (obj.Cnpj != null ? obj.NomeFantasia : obj.Nome);
                 vm.ListaCliente.Add(new SelectListItem { Text = vm.NomeCliente, Value = vm.IdCliente.ToString(CultureInfo.InvariantCulture) });
             }
 

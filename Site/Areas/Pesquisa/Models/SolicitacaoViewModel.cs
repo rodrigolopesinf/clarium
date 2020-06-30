@@ -23,6 +23,8 @@ namespace Site.Areas.Pesquisa.Models
 
         public string NumeroSequencial { get; set; }
 
+        public string Status { get; set; }
+
         public int Sequencia { get; set; }
 
         public int Ano { get; set; }
@@ -53,6 +55,10 @@ namespace Site.Areas.Pesquisa.Models
         public string Rg { get; set; }
 
         public string Pai { get; set; }
+
+        public string Local { get; set; }
+
+        public string Resposta { get; set; }
 
         public string Mae { get; set; }
 

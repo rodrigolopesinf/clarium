@@ -31,22 +31,7 @@ namespace Millenium.Infra.Data.Email
             mail.To.Add(new MailAddress("cpbarbosa@uol.com.br", "Celso Barbosa"));
             mail.Subject = "Contato";
             mail.Body =
-                " <br/> CLIENTE:  " + solicitacao.Cliente.NomeFantasia +
-                " <br/> DATA DE NASCIMENTO : " + solicitacao.DataNascimento +
-                " <br/> TIPO DE SOLICITAÇÃO : " + solicitacao.TipoSolicitacao.Descricao +
-                " <br/> NOME : " + solicitacao.Nome +
-                " <br/> NOME DA MÃE : " + solicitacao.NomeMae +
-                " <br/> NOME DO PAI : " + solicitacao.NomePai +
-                " <br/> RG : " + solicitacao.Rg +
-                " <br/> CPF : " + solicitacao.Cpf +
-                " <br/> " +
-                " <br/> LOGRADOURO : " + solicitacao.Endereco.Logradouro +
-                " <br/> NÚMERO : " + solicitacao.Endereco.Numero +
-                " <br/> COMPLEMENTO : " + solicitacao.Endereco.Complemento +
-                " <br/> CEP : " + solicitacao.Endereco.Cep +
-                " <br/> BAIRRO : " + solicitacao.Endereco.Bairro +
-                " <br/> CIDADE : " + solicitacao.Endereco.Cidade +
-                " <br/> ESTADO : " + solicitacao.Endereco.Estado;
+                " <br/> Sua solicitação está concluída, acesse http://www.clarium.net.br para visualizar a resposta. ";
             mail.IsBodyHtml = true;
             mail.Priority = MailPriority.High;
             try

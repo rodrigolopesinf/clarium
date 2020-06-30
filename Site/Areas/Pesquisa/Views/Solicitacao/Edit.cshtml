@@ -39,30 +39,34 @@
                             @Html.HiddenFor(m => m.DataHoraCriacao)
                             @Html.HiddenFor(m => m.IdUsuarioCriacao)
                             @Html.HiddenFor(m => m.NumeroSequencial)
-                            <div class="form-group col-lg-12">
-                                <hr />
-                                <h4 class="panel-title">
-                                    <i class="fa fa-book"></i>&nbsp;Dados da Pesquisa
-                                </h4>
-                                <br />
-                                <div class="form-group has-error col-lg-12">
-                                    <label>Número da Solicitação</label>
-                                    @Html.TextBoxFor(m => m.NumeroSequencial, new { @class = "form-control", @maxlength = 255, disabled = "disabled", onkeyup = "this.value = this.value.toUpperCase();" })
-                                </div>
-                                <br />
-                                <div class="form-group has-error col-lg-6">
-                                    <label>Cliente</label>
-                                    @Html.DropDownListFor(model => model.IdCliente, Model.ListaCliente, "SELECIONE", new { @class = "form-control", required = "required" })
-                                </div>
-                                <div class="form-group col-lg-6">
-                                    <label>Tipo de Solicitação</label>
-                                    @Html.DropDownListFor(model => model.IdTipoSolicitacao, Model.ListaTipoSolicitacao, "SELECIONE", new { @class = "form-control", required = "required" })
-                                </div>
+                        <div class="form-group col-lg-12">
+                            <hr />
+                            <h4 class="panel-title">
+                                <i class="fa fa-book"></i>&nbsp;Dados da Pesquisa
+                            </h4>
+                            <br />
+                            <div class="form-group has-error col-lg-4">
+                                <label>Número da Solicitação</label>
+                                @Html.TextBoxFor(m => m.NumeroSequencial, new { @class = "form-control", @maxlength = 255, disabled = "disabled", onkeyup = "this.value = this.value.toUpperCase();" })
                             </div>
+                            <div class="form-group has-error col-lg-3">
+                                <label>Status</label>
+                                @Html.TextBoxFor(m => m.Status, new { @class = "form-control", @maxlength = 255, disabled = "disabled", onkeyup = "this.value = this.value.toUpperCase();" })
+                            </div>
+                            <br />
+                            <div class="form-group has-error col-lg-6">
+                                <label>Cliente</label>
+                                @Html.DropDownListFor(model => model.IdCliente, Model.ListaCliente, "SELECIONE", new { @class = "form-control", required = "required" })
+                            </div>
+                            <div class="form-group col-lg-6">
+                                <label>Tipo de Solicitação</label>
+                                @Html.DropDownListFor(model => model.IdTipoSolicitacao, Model.ListaTipoSolicitacao, "SELECIONE", new { @class = "form-control", required = "required" })
+                            </div>
+                        </div>
                             <div class="form-group col-lg-12">
                                 <div class="form-group has-error col-lg-6">
                                     <label>Nome</label>
-                                    @Html.TextBoxFor(m => m.Nome, new { @class = "form-control", @maxlength = 255, onkeyup = "this.value = this.value.toUpperCase();" })
+                                    @Html.TextBoxFor(m => m.Nome, new { @class = "form-control", @maxlength = 50, onkeyup = "this.value = this.value.toUpperCase();" })
                                 </div>
                                 <div class="form-group has-error col-lg-4">
                                     <label>Data de Nascimento</label>
@@ -78,15 +82,19 @@
                                     <label>RG</label>
                                     @Html.TextBoxFor(m => m.Rg, new { @class = "form-control", @maxlength = 9, onkeyup = "formataNumero(event);" })
                                 </div>
+                                <div class="form-group has-error col-lg-4">
+                                    <label>Local de Nascimento</label>
+                                    @Html.TextBoxFor(m => m.Local, new { @class = "form-control", @maxlength = 50, onkeyup = "this.value = this.value.toUpperCase();" })
+                                </div>
                             </div>
                             <div class="form-group col-lg-12">
                                 <div class="form-group has-error col-lg-4">
                                     <label>Nome do Pai</label>
-                                    @Html.TextBoxFor(m => m.Pai, new { @class = "form-control", @maxlength = 255, onkeyup = "this.value = this.value.toUpperCase();" })
+                                    @Html.TextBoxFor(m => m.Pai, new { @class = "form-control", @maxlength = 50, onkeyup = "this.value = this.value.toUpperCase();" })
                                 </div>
                                 <div class="form-group has-error col-lg-4">
                                     <label>Nome da Mãe</label>
-                                    @Html.TextBoxFor(m => m.Mae, new { @class = "form-control", @maxlength = 255, onkeyup = "this.value = this.value.toUpperCase();" })
+                                    @Html.TextBoxFor(m => m.Mae, new { @class = "form-control", @maxlength = 50, onkeyup = "this.value = this.value.toUpperCase();" })
                                 </div>
                             </div>
                             <div class="form-group col-lg-12">
@@ -96,6 +104,16 @@
                                 </h4>
                                 <br />
                                 @Html.Partial("~/Areas/Cadastro/Views/Cliente/Endereco.cshtml", Model.EnderecoViewModel)
+                            </div>
+                            <div class="form-group col-lg-12">
+                                <hr />
+                                <h4 class="panel-title">
+                                    <i class="fa fa-reply"></i>&nbsp;Resposta
+                                </h4>
+                                <br />
+                                <div class="form-group col-lg-12">
+                                    @Html.TextAreaFor(m => m.Resposta, new { @class = "form-control", @maxlength = 5000, @style = "height: 150px", onkeyup = "this.value = this.value.toUpperCase();", required = "required" })
+                                </div>
                             </div>
                             <div class="form-group" style="text-align:right">
                                 <input type="reset" class="btn btn-default" value="Limpar">&nbsp;

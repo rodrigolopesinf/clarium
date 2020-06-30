@@ -64,6 +64,14 @@ namespace Millenium.Domain.Entity
         [StringLength(50)]
         public string NomeMae { get; set; }
 
+        [Required]
+        [StringLength(50)]
+        public string Local { get; set; }
+
+        [Required]
+        [StringLength(5000)]
+        public string Resposta { get; set; }
+
         public int IdTipoSolicitacao { get; set; }
 
         public int? IdEndereco { get; set; }
