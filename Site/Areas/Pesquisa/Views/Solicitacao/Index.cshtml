@@ -2,6 +2,7 @@
     ViewBag.Title = "Index";
     Layout = "~/Areas/Administrativa/Views/Shared/_Layout.cshtml";
 }
+@using Millenium.Util
 @model Site.Areas.Pesquisa.Models.SolicitacaoViewModel
 
 <div id="page-wrapper">
@@ -52,7 +53,7 @@
                                 </div>
                                 <div class="form-group col-lg-3">
                                     <label>Cliente</label>
-                                    @Html.DropDownListFor(model => model.IdCliente, Model.ListaCliente, "SELECIONE", new { @class = "form-control" })
+                                    @Html.DropDownListFor(model => model.IdCliente, Model.ListaCliente, "SELECIONE", new { @class = "form-control" }).DisableIf(() => Model.IdCliente != 0)
                                 </div>
                             </div>
                             <div class="form-group col-lg-12">
@@ -85,12 +86,12 @@
                                                            grid.Column("Nome", " Nome"),
                                                            grid.Column("Cpf", " Cpf"),
                                                            grid.Column("Editar", format: @<text>
-                                                            @Html.Raw(@Html.ActionLink("[replacetext]", "RetornarPorId", new { Id = item.IdSolicitacao }).ToHtmlString().Replace("[replacetext]", "<i class='fa fa-edit'></i>"))
+                                                                    @Html.Raw(@Html.ActionLink("[replacetext]", "RetornarPorId", new { Id = item.IdSolicitacao }).ToHtmlString().Replace("[replacetext]", "<i class='fa fa-edit'></i>"))
                                                         </text>, style: "form-group col-lg-1"),
-                                                        grid.Column("Excluir", format: @<text>
-                                                            @Html.Raw(@Html.ActionLink("[replacetext]", "Excluir", new { Id = item.IdSolicitacao, tipo = "Solicitacao" }).ToHtmlString().Replace("[replacetext]", "<i class='fa fa-trash-o'></i>"))
-                                                        </text>, style: "form-group col-lg-1")
-                                                        ))
+                                                 grid.Column("Excluir", format: @<text>
+                                @Html.Raw(@Html.ActionLink("[replacetext]", "Excluir", new { Id = item.IdSolicitacao, tipo = "Solicitacao" }).ToHtmlString().Replace("[replacetext]", "<i class='fa fa-trash-o'></i>"))
+                                                </text>, style: "form-group col-lg-1")
+                                         ))
                                         if (grid.HasSelection)
                                         {
                                             solicitacao = (Site.Areas.Pesquisa.Models.SolicitacaoViewModel)grid.Rows[grid.SelectedIndex].Value;

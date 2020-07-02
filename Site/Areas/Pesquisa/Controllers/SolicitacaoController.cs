@@ -44,7 +44,8 @@ namespace Site.Areas.Pesquisa.Controllers
 
         public ActionResult Index()
         {
-            var vm = new SolicitacaoViewModel();            
+            var vm = new SolicitacaoViewModel();
+            vm = CarregarDropDownList(vm, false, (int)_usuarioApp.GetById(Convert.ToInt32(Session["UsuarioLogado"])).IdCliente);
             Session["ListaExportacaoSolicitacao"] = new List<SolicitacaoViewModel>();
             @ViewBag.MyInitialValue = "display:none";
             return View("Index", vm);
@@ -73,7 +74,7 @@ namespace Site.Areas.Pesquisa.Controllers
                     foreach (var SolicitacaoVm in lista.Select(item => new SolicitacaoViewModel
                     {
                         IdSolicitacao = item.IdSolicitacao,
-                        Cliente = { Nome = item.Cliente.Cnpj != null ? item.Cliente.NomeFantasia : item.Cliente.Nome },
+                        Cliente = { Nome = item.Cliente.CodigoCliente + " - " + item.Cliente.Cnpj != null ? item.Cliente.NomeFantasia : item.Cliente.Nome },
                         Nome = item.Nome,
                         Cpf = item.Cpf
                     }))
