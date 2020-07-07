@@ -59,7 +59,7 @@ namespace Site.Areas.Cadastro.Controllers
             var vm = new ClienteViewModel { Ativo = true, FaturaEmail = true };
             vm = CarregarDropDownList(vm, true, idSituacaoCliente: 1);
             vm.SituacaoCliente.IdSituacaoCliente = 1;
-            vm.EnderecoViewModel.Valida = true;
+            vm.EnderecoViewModel.Obrigatorio = true;
             vm.TipoRazao = true;
 
             vm.TipoSolicitacaoViewModel = new TipoSolicitacaoViewModel();
@@ -163,7 +163,7 @@ namespace Site.Areas.Cadastro.Controllers
             vm.EnderecoViewModel.Endereco.Cidade = endereco.Cidade;
             vm.EnderecoViewModel.Endereco.Estado = endereco.Estado;
             vm.EnderecoViewModel.DescricaoBairro = endereco.Bairro;
-            vm.EnderecoViewModel.Valida = true;
+            vm.EnderecoViewModel.Obrigatorio = true;
 
             if (cliente.IdContato != null)
             {
@@ -210,14 +210,7 @@ namespace Site.Areas.Cadastro.Controllers
                 ViewBag.Pf = "display:none";
                 @ViewBag.Pj = "display:block";
             }
-
-            //@ViewBag.Patrimonio = "display:block";
-            //@ViewBag.Contato = "display:block";
             @ViewBag.Imprimir = "display:block";
-
-            //vm.ContatoViewModel = new ContatoViewModel { ListaContato = ListaContatoViewModel(objContato.IdContato), IdCliente = obj.IdCliente };
-
-            //vm.TipoSolicitacaoViewModel = new TipoSolicitacaoViewModel { ListaTipoSolicitacoes = ListaTipoSolicitacaoViewModel(objTipoSolicitacao.IdTipoSolicitacao), IdCliente = obj.IdCliente };
 
             vm = CarregarDropDownList(vm, false, cliente.TipoCliente.IdTipoCliente, cliente.SituacaoCliente.IdSituacaoCliente);
 

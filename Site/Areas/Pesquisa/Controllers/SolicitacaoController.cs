@@ -45,7 +45,8 @@ namespace Site.Areas.Pesquisa.Controllers
         public ActionResult Index()
         {
             var vm = new SolicitacaoViewModel();
-            vm = CarregarDropDownList(vm, false, (int)_usuarioApp.GetById(Convert.ToInt32(Session["UsuarioLogado"])).IdCliente);
+            var usuario = _usuarioApp.GetById(Convert.ToInt32(Session["UsuarioLogado"]));
+            vm = CarregarDropDownList(vm, false, usuario.IdCliente != null ? (int)usuario.IdCliente : 0);
             Session["ListaExportacaoSolicitacao"] = new List<SolicitacaoViewModel>();
             @ViewBag.MyInitialValue = "display:none";
             return View("Index", vm);
@@ -57,6 +58,7 @@ namespace Site.Areas.Pesquisa.Controllers
             var vm = new SolicitacaoViewModel();
             vm.Status = "Pendente";
             vm = CarregarDropDownList(vm, true);
+            vm.EnderecoViewModel.Obrigatorio = false;
             return View("Edit", vm);
         }
 
@@ -65,22 +67,33 @@ namespace Site.Areas.Pesquisa.Controllers
         {
             var lista = _solicitacaoApp.ObterSolicitacoesAtivas();
 
+            if (!String.IsNullOrEmpty(vm.Nome))
+                lista = lista.Where(x => x.Nome.Contains(vm.Nome));
+
+            if(!String.IsNullOrEmpty(vm.Cpf))
+                lista = lista.Where(x => x.Cpf == vm.Cpf);
+
+            if (vm.IdCliente != 0)
+                lista = lista.Where(x => x.IdCliente == vm.IdCliente);
+
             switch (button)
             {
                 case "Buscar":
                     ModelState.Clear();
                     vm = new SolicitacaoViewModel();
 
-                    foreach (var SolicitacaoVm in lista.Select(item => new SolicitacaoViewModel
+                    foreach (var item in lista)
                     {
-                        IdSolicitacao = item.IdSolicitacao,
-                        Cliente = { Nome = item.Cliente.CodigoCliente + " - " + item.Cliente.Cnpj != null ? item.Cliente.NomeFantasia : item.Cliente.Nome },
-                        Nome = item.Nome,
-                        Cpf = item.Cpf
-                    }))
-                    {
-                        vm.ListaSolicitacoes.Add(SolicitacaoVm);
+                        var cliente = _clienteApp.GetById((int)item.IdCliente);
+                        vm.ListaSolicitacoes.Add(new SolicitacaoViewModel()
+                        {
+                            IdSolicitacao = item.IdSolicitacao,
+                            Cliente = { Nome = cliente.CodigoCliente + " - " + cliente.Cnpj != null ? cliente.NomeFantasia : cliente.Nome },
+                            Nome = item.Nome,
+                            Cpf = item.Cpf
+                        });
                     }
+
                     Session["ListaExportacaoSolicitacao"] = vm.ListaSolicitacoes;
                     @ViewBag.MyInitialValue = "display:block";
                     return View("Index", vm);
@@ -112,7 +125,7 @@ namespace Site.Areas.Pesquisa.Controllers
 
             PreencherEndereco(vm, obj);
 
-            vm.Status = obj.Resposta != string.Empty ? "Concluído" : "Pendente";
+            vm.Status = String.IsNullOrEmpty(obj.Resposta) ? "Pendente" : "Concluído" ;
             vm.IdSolicitacao = obj.IdSolicitacao;
             vm.IdCliente = (int)obj.IdCliente;
             vm.Cpf = obj.Cpf;
@@ -144,7 +157,7 @@ namespace Site.Areas.Pesquisa.Controllers
             vm.EnderecoViewModel.Endereco.Cidade = endereco.Cidade;
             vm.EnderecoViewModel.Endereco.Estado = endereco.Estado;
             vm.EnderecoViewModel.DescricaoBairro = endereco.Bairro;
-            vm.EnderecoViewModel.Valida = false;
+            vm.EnderecoViewModel.Obrigatorio = false;
         }
 
         [HttpPost]
@@ -183,7 +196,7 @@ namespace Site.Areas.Pesquisa.Controllers
                 var obj = new Solicitacao
                 {
                     IdCliente = vm.IdCliente,
-                    IdTipoSolicitacao = vm.IdTipoSolicitacao,                    
+                    IdTipoSolicitacao = vm.IdTipoSolicitacao,
                     Endereco =
                     {
                         IdEndereco = evm.Endereco.IdEndereco,
@@ -203,6 +216,8 @@ namespace Site.Areas.Pesquisa.Controllers
                     DataNascimento = vm.DataNascimento,
                     Cpf = vm.Cpf,
                     Rg = vm.Rg,
+                    Local = vm.Local,
+                    Resposta = vm.Resposta,
                     DataHoraCriacao = DateTime.Now,
                     IdUsuarioCriacao = Convert.ToInt32(Session["UsuarioLogado"])
                 };
@@ -250,6 +265,8 @@ namespace Site.Areas.Pesquisa.Controllers
                 solicitacaoOld.DataNascimento = vm.DataNascimento;
                 solicitacaoOld.Cpf = vm.Cpf;
                 solicitacaoOld.Rg = vm.Rg;
+                solicitacaoOld.Local = vm.Local;
+                solicitacaoOld.Resposta = vm.Resposta;
                 solicitacaoOld.DataHoraCriacao = DateTime.Now;
                 solicitacaoOld.IdUsuarioCriacao = Convert.ToInt32(Session["UsuarioLogado"]);
 
@@ -280,9 +297,10 @@ namespace Site.Areas.Pesquisa.Controllers
             var sequencia = 1;
             var codSequencial = _solicitacaoApp.GetAll().LastOrDefault(x => x.IdCliente == idCliente);
 
-            if (!(ano > codSequencial.Ano))
+            if (codSequencial != null)
             {
-                sequencia = codSequencial.Sequencia + sequencia;
+                if (!(ano > codSequencial.Ano))
+                    sequencia = codSequencial.Sequencia + sequencia;
             }
 
             return sequencia;

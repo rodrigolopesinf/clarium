@@ -21,8 +21,8 @@ namespace Site.Areas.Cadastro.Models
         public int IdBairro { get; set; }
         public string DescricaoBairro { get; set; }
 
-        public bool Valida { get; set; }
-
         public bool Desabilita { get; set; }
+
+        public bool Obrigatorio { get; set; }
     }
 }
