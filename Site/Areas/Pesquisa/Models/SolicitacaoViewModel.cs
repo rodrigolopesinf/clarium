@@ -62,6 +62,8 @@ namespace Site.Areas.Pesquisa.Models
 
         public string Mae { get; set; }
 
+        public int IdNivelUsuario { get; set; }
+
         public int IdSolicitacao { get; set; }
         public string IdSolicitacaoView
         {

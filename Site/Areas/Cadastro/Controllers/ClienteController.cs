@@ -153,7 +153,6 @@ namespace Site.Areas.Cadastro.Controllers
 
             var cliente = _clienteApp.GetById(Convert.ToInt32(id));
             var endereco = _enderecoApp.GetById((int)cliente.IdEndereco);
-            //var objTipoSolicitacao = _tipoSolicitacaoApp.GetAll().FirstOrDefault(x => x.IdTipoSolicitacao == 1);
 
             vm.EnderecoViewModel.Endereco.IdEndereco = endereco.IdEndereco;
             vm.EnderecoViewModel.Endereco.Logradouro = endereco.Logradouro;

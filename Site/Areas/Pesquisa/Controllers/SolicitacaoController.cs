@@ -44,21 +44,34 @@ namespace Site.Areas.Pesquisa.Controllers
 
         public ActionResult Index()
         {
-            var vm = new SolicitacaoViewModel();
-            var usuario = _usuarioApp.GetById(Convert.ToInt32(Session["UsuarioLogado"]));
-            vm = CarregarDropDownList(vm, false, usuario.IdCliente != null ? (int)usuario.IdCliente : 0);
+            var vm = new SolicitacaoViewModel()
+            {
+                IdNivelUsuario = Convert.ToInt32(Session["NivelUsuarioLogado"])
+            };
+            vm = CarregarDropdownCliente(vm, false);
             Session["ListaExportacaoSolicitacao"] = new List<SolicitacaoViewModel>();
             @ViewBag.MyInitialValue = "display:none";
             return View("Index", vm);
         }
 
+        private SolicitacaoViewModel CarregarDropdownCliente(SolicitacaoViewModel vm, bool cadastro)
+        {
+            var usuario = _usuarioApp.GetById(Convert.ToInt32(Session["UsuarioLogado"]));
+            vm = CarregarDropDownList(vm, cadastro, usuario.IdCliente != null ? (int)usuario.IdCliente : 0);
+            return vm;
+        }
+
         [HttpGet]
         public ActionResult Edit()
         {
-            var vm = new SolicitacaoViewModel();
-            vm.Status = "Pendente";
-            vm = CarregarDropDownList(vm, true);
-            vm.EnderecoViewModel.Obrigatorio = false;
+            var vm = new SolicitacaoViewModel
+            {
+                Status = "Pendente",
+                EnderecoViewModel = new EnderecoViewModel() { Obrigatorio = false },
+                IdNivelUsuario = Convert.ToInt32(Session["NivelUsuarioLogado"])
+            };
+            vm = CarregarDropdownCliente(vm, true);
+            @ViewBag.Butons = "text-align:right";
             return View("Edit", vm);
         }
 
@@ -70,17 +83,20 @@ namespace Site.Areas.Pesquisa.Controllers
             if (!String.IsNullOrEmpty(vm.Nome))
                 lista = lista.Where(x => x.Nome.Contains(vm.Nome));
 
-            if(!String.IsNullOrEmpty(vm.Cpf))
+            if (!String.IsNullOrEmpty(vm.Cpf))
                 lista = lista.Where(x => x.Cpf == vm.Cpf);
 
             if (vm.IdCliente != 0)
                 lista = lista.Where(x => x.IdCliente == vm.IdCliente);
 
+            vm = new SolicitacaoViewModel();
+            vm = CarregarDropdownCliente(vm, false);
+            vm.IdNivelUsuario = Convert.ToInt32(Session["NivelUsuarioLogado"]);
+
             switch (button)
             {
                 case "Buscar":
                     ModelState.Clear();
-                    vm = new SolicitacaoViewModel();
 
                     foreach (var item in lista)
                     {
@@ -90,24 +106,22 @@ namespace Site.Areas.Pesquisa.Controllers
                             IdSolicitacao = item.IdSolicitacao,
                             Cliente = { Nome = cliente.CodigoCliente + " - " + cliente.Cnpj != null ? cliente.NomeFantasia : cliente.Nome },
                             Nome = item.Nome,
-                            Cpf = item.Cpf
+                            Cpf = item.Cpf,
+                            Resposta = item.Resposta
                         });
                     }
-
                     Session["ListaExportacaoSolicitacao"] = vm.ListaSolicitacoes;
                     @ViewBag.MyInitialValue = "display:block";
-                    return View("Index", vm);
+                    break;
                 case "Exportar":
                     var listaExportacao = (List<SolicitacaoViewModel>)Session["ListaExportacaoSolicitacao"];
                     ExportarParaExcel(listaExportacao);
                     vm.ListaSolicitacoes = new List<SolicitacaoViewModel>();
                     Session["ListaExportacaoSolicitacao"] = new List<SolicitacaoViewModel>();
                     @ViewBag.MyInitialValue = "display:none";
-                    return View("Index", vm);
-
+                    break;
             }
-
-            return null;
+            return View("Index", vm);
         }
 
         [HttpGet]
@@ -125,7 +139,7 @@ namespace Site.Areas.Pesquisa.Controllers
 
             PreencherEndereco(vm, obj);
 
-            vm.Status = String.IsNullOrEmpty(obj.Resposta) ? "Pendente" : "Concluído" ;
+            vm.Status = String.IsNullOrEmpty(obj.Resposta) ? "Pendente" : "Concluído";
             vm.IdSolicitacao = obj.IdSolicitacao;
             vm.IdCliente = (int)obj.IdCliente;
             vm.Cpf = obj.Cpf;
@@ -140,8 +154,11 @@ namespace Site.Areas.Pesquisa.Controllers
             vm.NumeroSequencial = obj.NumeroSequencial;
             vm.Local = obj.Local;
             vm.Resposta = obj.Resposta;
+            vm.IdNivelUsuario = Convert.ToInt32(Session["NivelUsuarioLogado"]);
 
             vm = CarregarDropDownList(vm, false, (int)obj.IdCliente, obj.IdTipoSolicitacao);
+
+            @ViewBag.Butons = Convert.ToInt32(Session["NivelUsuarioLogado"]) == 3 && vm.Resposta != String.Empty ? "display:none" : "text-align:right";
 
             return View("Edit", vm);
         }
@@ -158,6 +175,7 @@ namespace Site.Areas.Pesquisa.Controllers
             vm.EnderecoViewModel.Endereco.Estado = endereco.Estado;
             vm.EnderecoViewModel.DescricaoBairro = endereco.Bairro;
             vm.EnderecoViewModel.Obrigatorio = false;
+            vm.EnderecoViewModel.Desabilita = vm.Resposta != String.Empty && Convert.ToInt32(Session["NivelUsuarioLogado"]) == 3;
         }
 
         [HttpPost]
@@ -243,7 +261,7 @@ namespace Site.Areas.Pesquisa.Controllers
                 Solicitacao solicitacaoOld = _solicitacaoApp.GetById(vm.IdSolicitacao);
                 solicitacaoOld.IdCliente = vm.IdCliente;
                 solicitacaoOld.IdTipoSolicitacao = vm.IdTipoSolicitacao;
-                
+
                 solicitacaoOld.NumeroSequencial = vm.NumeroSequencial;
                 solicitacaoOld.Sequencia = vm.Sequencia;
                 solicitacaoOld.Ano = vm.Ano;
@@ -287,7 +305,7 @@ namespace Site.Areas.Pesquisa.Controllers
             var idCliente = (int)obj.IdCliente;
             var cliente = _clienteApp.GetById(idCliente);
             obj.Ano = DateTime.Now.Year;
-            obj.Sequencia = GetSequencial(obj.Ano, idCliente);           
+            obj.Sequencia = GetSequencial(obj.Ano, idCliente);
 
             obj.NumeroSequencial = cliente.CodigoCliente + " - " + obj.Sequencia + "/" + obj.Ano;
         }
