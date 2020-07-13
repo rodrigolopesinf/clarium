@@ -61,43 +61,43 @@
                                 </div>
                                 <div class="form-group has-error col-lg-6">
                                     <label>Tipo de Solicitação</label>
-                                    @Html.DropDownListFor(model => model.IdTipoSolicitacao, Model.ListaTipoSolicitacao, "SELECIONE", new { @class = "form-control", required = "required" }).DisableIf(() => Model.IdNivelUsuario == 3 && Model.Resposta != string.Empty)
+                                    @Html.DropDownListFor(model => model.IdTipoSolicitacao, Model.ListaTipoSolicitacao, "SELECIONE", new { @class = "form-control", required = "required" }).DisableIf(() => Model.IdNivelUsuario == 3 && !String.IsNullOrEmpty(Model.Resposta))
                                 </div>
                             </div>
                             <div class="form-group col-lg-12">
                                 <div class="form-group has-error col-lg-6">
                                     <label>Nome</label>
-                                    @Html.TextBoxFor(m => m.Nome, new { @class = "form-control", @maxlength = 50, onkeyup = "this.value = this.value.toUpperCase();", required = "required" }).DisableIf(() => Model.IdNivelUsuario == 3 && Model.Resposta != string.Empty)
+                                    @Html.TextBoxFor(m => m.Nome, new { @class = "form-control", @maxlength = 50, onkeyup = "this.value = this.value.toUpperCase();", required = "required" }).DisableIf(() => Model.IdNivelUsuario == 3 && !String.IsNullOrEmpty(Model.Resposta))
                                 </div>
                                 <div class="form-group has-error col-lg-4">
                                     <label>Data de Nascimento</label>
-                                    @Html.TextBoxFor(m => m.DataNascimentoView, new { @class = "form-control", @maxlength = 10, onkeyup = "formataData(event);", required = "required" }).DisableIf(() => Model.IdNivelUsuario == 3 && Model.Resposta != string.Empty)
+                                    @Html.TextBoxFor(m => m.DataNascimentoView, new { @class = "form-control", @maxlength = 10, onkeyup = "formataData(event);", required = "required" }).DisableIf(() => Model.IdNivelUsuario == 3 && !String.IsNullOrEmpty(Model.Resposta))
                                 </div>
                             </div>
                             <div class="form-group col-lg-12">
                                 <div class="form-group has-error col-lg-4">
                                     <label>Local de Nascimento</label>
-                                    @Html.TextBoxFor(m => m.Local, new { @class = "form-control", @maxlength = 50, onkeyup = "this.value = this.value.toUpperCase();", required = "required" }).DisableIf(() => Model.IdNivelUsuario == 3 && Model.Resposta != string.Empty)
+                                    @Html.TextBoxFor(m => m.Local, new { @class = "form-control", @maxlength = 50, onkeyup = "this.value = this.value.toUpperCase();", required = "required" }).DisableIf(() => Model.IdNivelUsuario == 3 && !String.IsNullOrEmpty(Model.Resposta))
                                 </div>
                             </div>
                             <div class="form-group col-lg-12">
                                 <div class="form-group has-error col-lg-6">
                                     <label>Nome do Pai</label>
-                                    @Html.TextBoxFor(m => m.Pai, new { @class = "form-control", @maxlength = 50, onkeyup = "this.value = this.value.toUpperCase();", required = "required" }).DisableIf(() => Model.IdNivelUsuario == 3 && Model.Resposta != string.Empty)
+                                    @Html.TextBoxFor(m => m.Pai, new { @class = "form-control", @maxlength = 50, onkeyup = "this.value = this.value.toUpperCase();", required = "required" }).DisableIf(() => Model.IdNivelUsuario == 3 && !String.IsNullOrEmpty(Model.Resposta))
                                 </div>
                                 <div class="form-group has-error col-lg-6">
                                     <label>Nome da Mãe</label>
-                                    @Html.TextBoxFor(m => m.Mae, new { @class = "form-control", @maxlength = 50, onkeyup = "this.value = this.value.toUpperCase();", required = "required" }).DisableIf(() => Model.IdNivelUsuario == 3 && Model.Resposta != string.Empty)
+                                    @Html.TextBoxFor(m => m.Mae, new { @class = "form-control", @maxlength = 50, onkeyup = "this.value = this.value.toUpperCase();", required = "required" }).DisableIf(() => Model.IdNivelUsuario == 3 && !String.IsNullOrEmpty(Model.Resposta))
                                 </div>
                             </div>
                             <div class="form-group col-lg-12">
                                 <div class="form-group has-error col-lg-4">
                                     <label>Cpf</label>
-                                    @Html.TextBoxFor(m => m.Cpf, new { @class = "form-control", @maxlength = 14, onkeyup = "formataCPF(event);", required = "required" }).DisableIf(() => Model.IdNivelUsuario == 3 && Model.Resposta != string.Empty)
+                                    @Html.TextBoxFor(m => m.Cpf, new { @class = "form-control", @maxlength = 14, onkeyup = "formataCPF(event);", required = "required" }).DisableIf(() => Model.IdNivelUsuario == 3 && !String.IsNullOrEmpty(Model.Resposta))
                                 </div>
                                 <div class="form-group has-error col-lg-4">
                                     <label>RG</label>
-                                    @Html.TextBoxFor(m => m.Rg, new { @class = "form-control", @maxlength = 9, onkeyup = "formataNumero(event);", required = "required" }).DisableIf(() => Model.IdNivelUsuario == 3 && Model.Resposta != string.Empty)
+                                    @Html.TextBoxFor(m => m.Rg, new { @class = "form-control", @maxlength = 9, onkeyup = "formataNumero(event);", required = "required" }).DisableIf(() => Model.IdNivelUsuario == 3 && !String.IsNullOrEmpty(Model.Resposta))
                                 </div>
                             </div>
                             <div class="form-group col-lg-12">

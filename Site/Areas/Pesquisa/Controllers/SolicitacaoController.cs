@@ -78,16 +78,16 @@ namespace Site.Areas.Pesquisa.Controllers
         [HttpGet]
         public ActionResult Buscar(SolicitacaoViewModel vm, string descricao, string ativo, string button)
         {
-            var lista = _solicitacaoApp.ObterSolicitacoesAtivas();
+            var lista = _solicitacaoApp.ObterSolicitacoesAtivas().ToList();
 
             if (!String.IsNullOrEmpty(vm.Nome))
-                lista = lista.Where(x => x.Nome.Contains(vm.Nome));
+                lista = lista.Where(x => x.Nome.Contains(vm.Nome)).ToList();
 
             if (!String.IsNullOrEmpty(vm.Cpf))
-                lista = lista.Where(x => x.Cpf == vm.Cpf);
+                lista = lista.Where(x => x.Cpf == vm.Cpf).ToList();
 
             if (vm.IdCliente != 0)
-                lista = lista.Where(x => x.IdCliente == vm.IdCliente);
+                lista = lista.Where(x => x.IdCliente == vm.IdCliente).ToList();
 
             vm = new SolicitacaoViewModel();
             vm = CarregarDropdownCliente(vm, false);
