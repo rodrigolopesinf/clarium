@@ -13,6 +13,8 @@ using System.Linq;
 using System.Web.Mvc;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using iTextSharp.text;
+using iTextSharp.text.pdf;
 
 namespace Site.Areas.Pesquisa.Controllers
 {
@@ -161,6 +163,23 @@ namespace Site.Areas.Pesquisa.Controllers
             @ViewBag.Butons = Convert.ToInt32(Session["NivelUsuarioLogado"]) == 3 && vm.Resposta != String.Empty ? "display:none" : "text-align:right";
 
             return View("Edit", vm);
+        }
+
+        [HttpGet]
+        public ActionResult Imprimir(string id)
+        {
+            var filePath = ExportToPDF(_solicitacaoApp.GetById(Convert.ToInt32(id)));
+            var file = new FileInfo(filePath);
+
+            Response.Clear();
+            Response.Buffer = true;
+            Response.AddHeader("content-disposition", "attachment;filename=solicitacao.pdf");
+            Response.Charset = "";
+            Response.ContentType = "Application/pdf";
+            Response.TransmitFile(file.FullName);
+            Response.End();
+
+            return null;
         }
 
         private void PreencherEndereco(SolicitacaoViewModel vm, Solicitacao obj)
@@ -418,6 +437,106 @@ namespace Site.Areas.Pesquisa.Controllers
             _solicitacaoApp.Remove(_solicitacaoApp.GetById(evm.IdExclusao));
             @ViewBag.MyInitialValue = "display:none";
             return View("Index", vm);
+        }
+
+        #endregion
+
+        #region PDF
+
+        public string ExportToPDF(Solicitacao solicitacao)
+        {
+            var pdfDocument = new Document();
+            var pdfFile = string.Format("{0}{1}.pdf", Path.GetTempPath(), "solicitacao");
+
+            var pdfWriter = PdfWriter.GetInstance(pdfDocument, new FileStream(pdfFile, FileMode.Create));
+            pdfDocument.Open();
+
+            FontFactory.RegisterDirectory("C:\\WINDOWS\\Fonts");
+            var font = FontFactory.GetFont("Times-Italic", 14);
+
+            // Textos.
+            var paragraph = new Paragraph("CONFIDENCIAL", FontFactory.GetFont("Times-Italic", 22, 1, BaseColor.RED));
+            paragraph.Alignment = Element.ALIGN_CENTER;
+            pdfDocument.Add(paragraph);
+
+            pdfDocument.Add(Chunk.NEWLINE);
+            pdfDocument.Add(Chunk.NEWLINE);
+
+            paragraph = new Paragraph(DateTime.Now.ToString("dd/MM/yyyy"), font);
+            paragraph.Alignment = Element.ALIGN_RIGHT;
+            pdfDocument.Add(paragraph);
+
+            paragraph = new Paragraph(solicitacao.NumeroSequencial, font);
+            paragraph.Alignment = Element.ALIGN_RIGHT;
+            pdfDocument.Add(paragraph);
+
+            pdfDocument.Add(Chunk.NEWLINE);
+
+            paragraph = new Paragraph("NOME: " + solicitacao.Nome, font);
+            paragraph.Alignment = Element.ALIGN_JUSTIFIED;
+            pdfDocument.Add(paragraph);
+
+            pdfDocument.Add(Chunk.NEWLINE);
+
+            paragraph = new Paragraph("LOCAL: " + solicitacao.Local, font);
+            paragraph.Alignment = Element.ALIGN_JUSTIFIED;
+            pdfDocument.Add(paragraph);
+
+            pdfDocument.Add(Chunk.NEWLINE);
+
+            paragraph = new Paragraph("NASCIMENTO: " + solicitacao.DataNascimento.ToString("dd/MM/yyyy"), font);
+            paragraph.Alignment = Element.ALIGN_JUSTIFIED;
+            pdfDocument.Add(paragraph);
+
+            pdfDocument.Add(Chunk.NEWLINE);
+
+            paragraph = new Paragraph("NOME DA MÃE: " + solicitacao.NomeMae, font);
+            paragraph.Alignment = Element.ALIGN_JUSTIFIED;
+            pdfDocument.Add(paragraph);
+
+            pdfDocument.Add(Chunk.NEWLINE);
+
+            paragraph = new Paragraph("NOME DO PAI: " + solicitacao.NomePai, font);
+            paragraph.Alignment = Element.ALIGN_JUSTIFIED;
+            pdfDocument.Add(paragraph);
+
+            pdfDocument.Add(Chunk.NEWLINE);
+
+            paragraph = new Paragraph("IDENTIDADE: " + solicitacao.Rg, font);
+            paragraph.Alignment = Element.ALIGN_JUSTIFIED;
+            pdfDocument.Add(paragraph);
+
+            pdfDocument.Add(Chunk.NEWLINE);
+
+            paragraph = new Paragraph("CPF: " + solicitacao.Cpf, font);
+            paragraph.Alignment = Element.ALIGN_JUSTIFIED;
+            pdfDocument.Add(paragraph);
+
+            pdfDocument.Add(Chunk.NEWLINE);
+
+            paragraph = new Paragraph("PESQUISA SOCIAL: " + solicitacao.Resposta, font);
+            paragraph.Alignment = Element.ALIGN_JUSTIFIED;
+            pdfDocument.Add(paragraph);
+
+            pdfDocument.Add(Chunk.NEWLINE);
+            pdfDocument.Add(Chunk.NEWLINE);
+            pdfDocument.Add(Chunk.NEWLINE);
+            pdfDocument.Add(Chunk.NEWLINE);
+
+            paragraph = new Paragraph("Ressaltamos que as Informações Prestadas são de CARATER", FontFactory.GetFont("Times-Italic", 10));
+            paragraph.Alignment = Element.ALIGN_CENTER;
+            pdfDocument.Add(paragraph);
+
+            paragraph = new Paragraph("ESTRITAMENTE CONFIDENCIAL, e para vosso uso Exclusivo,", FontFactory.GetFont("Times-Italic", 10));
+            paragraph.Alignment = Element.ALIGN_CENTER;
+            pdfDocument.Add(paragraph);
+
+            paragraph = new Paragraph("sob risco de quebra de SIGILO PROFISSIONAL.", FontFactory.GetFont("Times-Italic", 10));
+            paragraph.Alignment = Element.ALIGN_CENTER;
+            pdfDocument.Add(paragraph);
+
+            pdfDocument.Close();
+            return pdfFile;
         }
 
         #endregion

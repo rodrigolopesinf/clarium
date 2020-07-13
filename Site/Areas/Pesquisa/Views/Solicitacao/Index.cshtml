@@ -85,13 +85,16 @@
                                                            grid.Column("Cliente.Nome", " Cliente"),
                                                            grid.Column("Nome", " Nome"),
                                                            grid.Column("Cpf", " Cpf"),
-                                                           grid.Column("Andamento", format: @<text>
-                                                                    @Html.Raw(@Html.ActionLink("[replacetext]", "RetornarPorId", new { Id = item.IdSolicitacao }).ToHtmlString().Replace("[replacetext]", String.IsNullOrEmpty(item.Resposta) ? "<i class='fa fa-reply-all btn-warning'></i>" : "<i class='fa fa-thumbs-up btn-success'></i>"))
+                                                           grid.Column("Imprimir", format: @<text>
+                                                                    @Html.Raw(@Html.ActionLink("[replacetext]", "Imprimir", new { Id = item.IdSolicitacao }).ToHtmlString().Replace("[replacetext]", "<i class='fa fa-print btn-default'></i>"))
                                                         </text>, style: "form-group col-lg-1"),
-                                                 grid.Column("Excluir", format: @<text>
-                                @Html.Raw(@Html.ActionLink("[replacetext]", "Excluir", new { Id = item.IdSolicitacao, tipo = "Solicitacao" }).ToHtmlString().Replace("[replacetext]", "<i class='fa fa-trash-o btn-danger'></i>"))
-                                                </text>, style: "form-group col-lg-1")
-                                         ))
+                                                    grid.Column("Andamento", format: @<text>
+                                    @Html.Raw(@Html.ActionLink("[replacetext]", "RetornarPorId", new { Id = item.IdSolicitacao }).ToHtmlString().Replace("[replacetext]", String.IsNullOrEmpty(item.Resposta) ? "<i class='fa fa-reply-all btn-warning'></i>" : "<i class='fa fa-thumbs-up btn-success'></i>"))
+                                                    </text>, style: "form-group col-lg-1"),
+                                      grid.Column("Excluir", format: @<text>
+                                    @Html.Raw(@Html.ActionLink("[replacetext]", "Excluir", new { Id = item.IdSolicitacao, tipo = "Solicitacao" }).ToHtmlString().Replace("[replacetext]", "<i class='fa fa-trash-o btn-danger'></i>"))
+                                    </text>, style: "form-group col-lg-1")
+                      ))
                                         if (grid.HasSelection)
                                         {
                                             solicitacao = (Site.Areas.Pesquisa.Models.SolicitacaoViewModel)grid.Rows[grid.SelectedIndex].Value;
