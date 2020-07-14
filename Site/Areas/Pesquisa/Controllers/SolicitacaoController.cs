@@ -449,90 +449,86 @@ namespace Site.Areas.Pesquisa.Controllers
             var pdfFile = string.Format("{0}{1}.pdf", Path.GetTempPath(), "solicitacao");
 
             var pdfWriter = PdfWriter.GetInstance(pdfDocument, new FileStream(pdfFile, FileMode.Create));
+            pdfWriter.PageEvent = new PDFFooter();
             pdfDocument.Open();
 
             FontFactory.RegisterDirectory("C:\\WINDOWS\\Fonts");
             var font = FontFactory.GetFont("Times-Italic", 14);
-
-            // Textos.
-            var paragraph = new Paragraph("CONFIDENCIAL", FontFactory.GetFont("Times-Italic", 22, 1, BaseColor.RED));
-            paragraph.Alignment = Element.ALIGN_CENTER;
+                        
+            var paragraph = new Paragraph("Data: " + DateTime.Now.ToString("dd/MM/yyyy"), font)
+            {
+                Alignment = Element.ALIGN_RIGHT
+            };
             pdfDocument.Add(paragraph);
 
-            pdfDocument.Add(Chunk.NEWLINE);
-            pdfDocument.Add(Chunk.NEWLINE);
-
-            paragraph = new Paragraph(DateTime.Now.ToString("dd/MM/yyyy"), font);
-            paragraph.Alignment = Element.ALIGN_RIGHT;
-            pdfDocument.Add(paragraph);
-
-            paragraph = new Paragraph(solicitacao.NumeroSequencial, font);
-            paragraph.Alignment = Element.ALIGN_RIGHT;
+            paragraph = new Paragraph("Nº: " + solicitacao.NumeroSequencial, font)
+            {
+                Alignment = Element.ALIGN_RIGHT
+            };
             pdfDocument.Add(paragraph);
 
             pdfDocument.Add(Chunk.NEWLINE);
 
-            paragraph = new Paragraph("NOME: " + solicitacao.Nome, font);
-            paragraph.Alignment = Element.ALIGN_JUSTIFIED;
+            paragraph = new Paragraph("NOME: " + solicitacao.Nome, font)
+            {
+                Alignment = Element.ALIGN_JUSTIFIED
+            };
             pdfDocument.Add(paragraph);
 
             pdfDocument.Add(Chunk.NEWLINE);
 
-            paragraph = new Paragraph("LOCAL: " + solicitacao.Local, font);
-            paragraph.Alignment = Element.ALIGN_JUSTIFIED;
+            paragraph = new Paragraph("LOCAL: " + solicitacao.Local, font)
+            {
+                Alignment = Element.ALIGN_JUSTIFIED
+            };
             pdfDocument.Add(paragraph);
 
             pdfDocument.Add(Chunk.NEWLINE);
 
-            paragraph = new Paragraph("NASCIMENTO: " + solicitacao.DataNascimento.ToString("dd/MM/yyyy"), font);
-            paragraph.Alignment = Element.ALIGN_JUSTIFIED;
+            paragraph = new Paragraph("NASCIMENTO: " + solicitacao.DataNascimento.ToString("dd/MM/yyyy"), font)
+            {
+                Alignment = Element.ALIGN_JUSTIFIED
+            };
             pdfDocument.Add(paragraph);
 
             pdfDocument.Add(Chunk.NEWLINE);
 
-            paragraph = new Paragraph("NOME DA MÃE: " + solicitacao.NomeMae, font);
-            paragraph.Alignment = Element.ALIGN_JUSTIFIED;
+            paragraph = new Paragraph("NOME DA MÃE: " + solicitacao.NomeMae, font)
+            {
+                Alignment = Element.ALIGN_JUSTIFIED
+            };
             pdfDocument.Add(paragraph);
 
             pdfDocument.Add(Chunk.NEWLINE);
 
-            paragraph = new Paragraph("NOME DO PAI: " + solicitacao.NomePai, font);
-            paragraph.Alignment = Element.ALIGN_JUSTIFIED;
+            paragraph = new Paragraph("NOME DO PAI: " + solicitacao.NomePai, font)
+            {
+                Alignment = Element.ALIGN_JUSTIFIED
+            };
             pdfDocument.Add(paragraph);
 
             pdfDocument.Add(Chunk.NEWLINE);
 
-            paragraph = new Paragraph("IDENTIDADE: " + solicitacao.Rg, font);
-            paragraph.Alignment = Element.ALIGN_JUSTIFIED;
+            paragraph = new Paragraph("IDENTIDADE: " + solicitacao.Rg, font)
+            {
+                Alignment = Element.ALIGN_JUSTIFIED
+            };
             pdfDocument.Add(paragraph);
 
             pdfDocument.Add(Chunk.NEWLINE);
 
-            paragraph = new Paragraph("CPF: " + solicitacao.Cpf, font);
-            paragraph.Alignment = Element.ALIGN_JUSTIFIED;
+            paragraph = new Paragraph("CPF: " + solicitacao.Cpf, font)
+            {
+                Alignment = Element.ALIGN_JUSTIFIED
+            };
             pdfDocument.Add(paragraph);
 
             pdfDocument.Add(Chunk.NEWLINE);
 
-            paragraph = new Paragraph("PESQUISA SOCIAL: " + solicitacao.Resposta, font);
-            paragraph.Alignment = Element.ALIGN_JUSTIFIED;
-            pdfDocument.Add(paragraph);
-
-            pdfDocument.Add(Chunk.NEWLINE);
-            pdfDocument.Add(Chunk.NEWLINE);
-            pdfDocument.Add(Chunk.NEWLINE);
-            pdfDocument.Add(Chunk.NEWLINE);
-
-            paragraph = new Paragraph("Ressaltamos que as Informações Prestadas são de CARATER", FontFactory.GetFont("Times-Italic", 10));
-            paragraph.Alignment = Element.ALIGN_CENTER;
-            pdfDocument.Add(paragraph);
-
-            paragraph = new Paragraph("ESTRITAMENTE CONFIDENCIAL, e para vosso uso Exclusivo,", FontFactory.GetFont("Times-Italic", 10));
-            paragraph.Alignment = Element.ALIGN_CENTER;
-            pdfDocument.Add(paragraph);
-
-            paragraph = new Paragraph("sob risco de quebra de SIGILO PROFISSIONAL.", FontFactory.GetFont("Times-Italic", 10));
-            paragraph.Alignment = Element.ALIGN_CENTER;
+            paragraph = new Paragraph("PESQUISA SOCIAL: " + solicitacao.Resposta, font)
+            {
+                Alignment = Element.ALIGN_JUSTIFIED
+            };
             pdfDocument.Add(paragraph);
 
             pdfDocument.Close();

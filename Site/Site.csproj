@@ -201,6 +201,7 @@
     <Compile Include="Areas\Faturamento\Models\FaturamentoViewModel.cs" />
     <Compile Include="Areas\Interfaces\IControllerBase.cs" />
     <Compile Include="Areas\Pesquisa\Controllers\SolicitacaoController.cs" />
+    <Compile Include="Areas\Pesquisa\Models\PDFFooter.cs" />
     <Compile Include="Areas\Pesquisa\Models\SolicitacaoViewModel.cs" />
     <Compile Include="Areas\Pesquisa\PesquisaAreaRegistration.cs" />
     <Compile Include="Global.asax.cs">
