@@ -454,8 +454,16 @@ namespace Site.Areas.Pesquisa.Controllers
 
             FontFactory.RegisterDirectory("C:\\WINDOWS\\Fonts");
             var font = FontFactory.GetFont("Times-Italic", 14);
-                        
-            var paragraph = new Paragraph("Data: " + DateTime.Now.ToString("dd/MM/yyyy"), font)
+
+            var paragraph = new Paragraph("CONFIDENCIAL", FontFactory.GetFont("Times-Italic", 22, 1, BaseColor.RED))
+            {
+                Alignment = Element.ALIGN_CENTER
+            };
+            pdfDocument.Add(paragraph);
+
+            pdfDocument.Add(Chunk.NEWLINE);
+
+            paragraph = new Paragraph("Data: " + DateTime.Now.ToString("dd/MM/yyyy"), font)
             {
                 Alignment = Element.ALIGN_RIGHT
             };

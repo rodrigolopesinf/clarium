@@ -6,24 +6,27 @@ namespace Site.Areas.Pesquisa.Models
     public class PDFFooter : PdfPageEventHelper
     {
         // write on top of document
-        public override void OnOpenDocument(PdfWriter writer, Document document)
-        {
-            base.OnOpenDocument(writer, document);
-            PdfPTable tabFot = new PdfPTable(new float[] { 1F });
-            tabFot.SpacingAfter = 10F;
-            PdfPCell cell;
-            tabFot.TotalWidth = 300F;
-            cell = new PdfPCell(new Phrase("CONFIDENCIAL", FontFactory.GetFont("Times-Italic", 22, 1, BaseColor.RED)))
-            {
-                HorizontalAlignment = Element.ALIGN_CENTER,
-                BorderWidthBottom = 0,
-                BorderWidthLeft = 0,
-                BorderWidthTop = 0,
-                BorderWidthRight = 0
-            };
-            tabFot.AddCell(cell);
-            tabFot.WriteSelectedRows(0, -1, 150, document.Top, writer.DirectContent);            
-        }
+        //public override void OnOpenDocument(PdfWriter writer, Document document)
+        //{
+        //    base.OnOpenDocument(writer, document);
+        //    PdfPTable tabFot = new PdfPTable(new float[] { 1F });
+        //    tabFot.SpacingAfter = 10F;
+        //    PdfPCell cell;
+        //    tabFot.TotalWidth = 300F;
+        //    cell = new PdfPCell(new Phrase("CONFIDENCIAL", FontFactory.GetFont("Times-Italic", 22, 1, BaseColor.RED)))
+        //    {
+        //        HorizontalAlignment = Element.ALIGN_CENTER,
+        //        BorderWidthBottom = 0,
+        //        BorderWidthLeft = 0,
+        //        BorderWidthTop = 0,
+        //        BorderWidthRight = 0
+        //    };
+        //    document.Add(Chunk.NEWLINE);
+        //    document.Add(Chunk.NEWLINE);
+        //    document.Add(Chunk.NEWLINE);
+        //    tabFot.AddCell(cell);
+        //    tabFot.WriteSelectedRows(0, -1, 150, document.Top, writer.DirectContent);            
+        //}
 
         // write on start of each page
         public override void OnStartPage(PdfWriter writer, Document document)
