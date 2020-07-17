@@ -485,7 +485,7 @@ namespace Site.Areas.Pesquisa.Controllers
 
             pdfDocument.Add(Chunk.NEWLINE);
 
-            paragraph = new Paragraph("LOCAL: " + solicitacao.Local, font)
+            paragraph = new Paragraph("LOCAL DE NASCIMENTO: " + solicitacao.Local, font)
             {
                 Alignment = Element.ALIGN_JUSTIFIED
             };
