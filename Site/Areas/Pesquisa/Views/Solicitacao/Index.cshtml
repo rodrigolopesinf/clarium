@@ -61,7 +61,7 @@
                                 <div class="form-group col-lg-4">
                                     <label>Pesquisar</label><br />
                                     <input type="submit" class="btn btn-default" value="Buscar" name="button" />&nbsp;
-                                    <input type="reset" class="btn btn-default" value="Limpar" onclick=" ShowHideDIV('dvGrid'); ">
+                                    <input type="reset" class="btn btn-default" value="Limpar" onclick=" ShowHideDIV('dvGrid'); Limpar(); ">
                                     <input type="submit" class="btn btn-default" value="Exportar" name="button" />&nbsp;
                                 </div>
                             </div>
@@ -122,6 +122,16 @@
 <script>
     function ShowHideDIV(nomeDiv) {
         document.getElementById(nomeDiv).style.display = "none";
+    }
+
+    function Limpar() {
+        var nome = $("#Nome");
+        nome[0].defaultValue = "";
+        nome[0].value = "";
+
+        var cpf = $("#Cpf");
+        cpf[0].defaultValue = "";
+        cpf[0].value = "";
     }
 </script>
 

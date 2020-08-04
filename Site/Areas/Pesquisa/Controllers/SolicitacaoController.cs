@@ -82,16 +82,15 @@ namespace Site.Areas.Pesquisa.Controllers
         {
             var lista = _solicitacaoApp.ObterSolicitacoesAtivas().ToList();
 
-            if (!String.IsNullOrEmpty(vm.Nome))
+            if (!string.IsNullOrEmpty(vm.Nome))
                 lista = lista.Where(x => x.Nome.Contains(vm.Nome)).ToList();
 
-            if (!String.IsNullOrEmpty(vm.Cpf))
+            if (!string.IsNullOrEmpty(vm.Cpf))
                 lista = lista.Where(x => x.Cpf == vm.Cpf).ToList();
 
             if (vm.IdCliente != 0)
                 lista = lista.Where(x => x.IdCliente == vm.IdCliente).ToList();
 
-            vm = new SolicitacaoViewModel();
             vm = CarregarDropdownCliente(vm, false);
             vm.IdNivelUsuario = Convert.ToInt32(Session["NivelUsuarioLogado"]);
 
@@ -99,31 +98,35 @@ namespace Site.Areas.Pesquisa.Controllers
             {
                 case "Buscar":
                     ModelState.Clear();
-
-                    foreach (var item in lista)
-                    {
-                        var cliente = _clienteApp.GetById((int)item.IdCliente);
-                        vm.ListaSolicitacoes.Add(new SolicitacaoViewModel()
-                        {
-                            IdSolicitacao = item.IdSolicitacao,
-                            Cliente = { Nome = cliente.CodigoCliente + " - " + cliente.Cnpj != null ? cliente.NomeFantasia : cliente.Nome },
-                            Nome = item.Nome,
-                            Cpf = item.Cpf,
-                            Resposta = item.Resposta
-                        });
-                    }
-                    Session["ListaExportacaoSolicitacao"] = vm.ListaSolicitacoes;
+                    Session["ListaExportacaoSolicitacao"] = RetornarListaSolicitacao(vm, lista);
                     @ViewBag.MyInitialValue = "display:block";
                     break;
                 case "Exportar":
-                    var listaExportacao = (List<SolicitacaoViewModel>)Session["ListaExportacaoSolicitacao"];
-                    ExportarParaExcel(listaExportacao);
+                    ExportarParaExcel(RetornarListaSolicitacao(vm, lista));
                     vm.ListaSolicitacoes = new List<SolicitacaoViewModel>();
                     Session["ListaExportacaoSolicitacao"] = new List<SolicitacaoViewModel>();
                     @ViewBag.MyInitialValue = "display:none";
                     break;
             }
             return View("Index", vm);
+        }
+
+        private List<SolicitacaoViewModel> RetornarListaSolicitacao(SolicitacaoViewModel vm, List<Solicitacao> lista)
+        {
+            foreach (var item in lista)
+            {
+                var cliente = _clienteApp.GetById((int)item.IdCliente);
+                vm.ListaSolicitacoes.Add(new SolicitacaoViewModel()
+                {
+                    IdSolicitacao = item.IdSolicitacao,
+                    Cliente = { Nome = cliente.CodigoCliente + " - " + cliente.Cnpj != null ? cliente.NomeFantasia : cliente.Nome },
+                    Nome = item.Nome,
+                    Cpf = item.Cpf,
+                    Resposta = item.Resposta
+                });
+            }
+
+            return vm.ListaSolicitacoes;
         }
 
         [HttpGet]
@@ -381,12 +384,13 @@ namespace Site.Areas.Pesquisa.Controllers
         public void ExportarParaExcel(List<SolicitacaoViewModel> lista)
         {
             var tiposCliente = new DataTable("dataTableSolicitacao");
-            tiposCliente.Columns.Add("Descrição", typeof(string));
-            tiposCliente.Columns.Add("Ativo", typeof(string));
+            tiposCliente.Columns.Add("Cliente", typeof(string));
+            tiposCliente.Columns.Add("Nome", typeof(string));
+            tiposCliente.Columns.Add("CPF", typeof(string));
 
             foreach (var t in lista)
             {
-                tiposCliente.Rows.Add(t.Cliente, t.Cpf);
+                tiposCliente.Rows.Add(t.Cliente.Nome, t.Nome, t.Cpf);
             }
 
             var grid = new GridView { DataSource = tiposCliente };
