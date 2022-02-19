@@ -14,7 +14,7 @@ namespace Site.Areas.Pesquisa.Models
             TipoSolicitacao = new TipoSolicitacao();
             Cliente = new Cliente();
             ListaSolicitacoes = new List<SolicitacaoViewModel>();
-            ListaCliente = new List<SelectListItem>();
+            ListaClienteSolicitacao = new List<SelectListItem>();
             ListaTipoSolicitacao = new List<SelectListItem>();
             EnderecoViewModel = new EnderecoViewModel();
         }
@@ -81,9 +81,9 @@ namespace Site.Areas.Pesquisa.Models
 
         public EnderecoViewModel EnderecoViewModel { get; set; }
 
-        public List<SelectListItem> ListaCliente { get; set; }
-        public int IdCliente { get; set; }
-        public string NomeCliente { get; set; }
+        public List<SelectListItem> ListaClienteSolicitacao { get; set; }
+        public int IdClienteSolicitacao { get; set; }
+        public string NomeClienteSolicitacao { get; set; }
 
         public List<SelectListItem> ListaTipoSolicitacao { get; set; }
         public int IdTipoSolicitacao { get; set; }

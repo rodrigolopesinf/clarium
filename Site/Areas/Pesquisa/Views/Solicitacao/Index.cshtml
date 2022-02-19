@@ -53,7 +53,7 @@
                                 </div>
                                 <div class="form-group col-lg-3">
                                     <label>Cliente</label>
-                                    @Html.DropDownListFor(model => model.IdCliente, Model.ListaCliente, "SELECIONE", new { @class = "form-control" }).DisableIf(() => Model.IdNivelUsuario == 3)
+                                    @Html.DropDownListFor(model => model.IdClienteSolicitacao, Model.ListaClienteSolicitacao, "SELECIONE", new { @class = "form-control" }).DisableIf(() => Model.IdNivelUsuario == 3)
                                 </div>
                             </div>
                             <div class="form-group col-lg-12">

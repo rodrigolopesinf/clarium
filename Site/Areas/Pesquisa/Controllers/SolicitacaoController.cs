@@ -88,8 +88,8 @@ namespace Site.Areas.Pesquisa.Controllers
             if (!string.IsNullOrEmpty(vm.Cpf))
                 lista = lista.Where(x => x.Cpf == vm.Cpf).ToList();
 
-            if (vm.IdCliente != 0)
-                lista = lista.Where(x => x.IdCliente == vm.IdCliente).ToList();
+            if (vm.IdClienteSolicitacao != 0)
+                lista = lista.Where(x => x.IdCliente == vm.IdClienteSolicitacao).ToList();
 
             vm = CarregarDropdownCliente(vm, false);
             vm.IdNivelUsuario = Convert.ToInt32(Session["NivelUsuarioLogado"]);
@@ -146,7 +146,7 @@ namespace Site.Areas.Pesquisa.Controllers
 
             vm.Status = String.IsNullOrEmpty(obj.Resposta) ? "Pendente" : "Concluído";
             vm.IdSolicitacao = obj.IdSolicitacao;
-            vm.IdCliente = (int)obj.IdCliente;
+            vm.IdClienteSolicitacao = (int)obj.IdCliente;
             vm.Cpf = obj.Cpf;
             vm.DataNascimento = obj.DataNascimento;
             vm.IdTipoSolicitacao = obj.IdTipoSolicitacao;
@@ -235,7 +235,7 @@ namespace Site.Areas.Pesquisa.Controllers
             {
                 var obj = new Solicitacao
                 {
-                    IdCliente = vm.IdCliente,
+                    IdCliente = vm.IdClienteSolicitacao,
                     IdTipoSolicitacao = vm.IdTipoSolicitacao,
                     Endereco =
                     {
@@ -265,8 +265,9 @@ namespace Site.Areas.Pesquisa.Controllers
                 GerarNumeroSequencial(obj);
 
                 _solicitacaoApp.Add(obj);
+                string mensagem = " <br/> O cliente " + vm.Cliente.NomeFantasia + "gerou a solicitação de número " + vm.IdSolicitacao;
 
-                new Email(obj, _usuarioApp.GetById(Convert.ToInt32(Session["UsuarioLogado"])));
+                new Email(obj, "consulta@milleniumpesquisas.com.br", "Nova solicitação do cliente", mensagem);
             }
             catch (Exception ex)
             {
@@ -281,7 +282,7 @@ namespace Site.Areas.Pesquisa.Controllers
             try
             {
                 Solicitacao solicitacaoOld = _solicitacaoApp.GetById(vm.IdSolicitacao);
-                solicitacaoOld.IdCliente = vm.IdCliente;
+                solicitacaoOld.IdCliente = vm.IdClienteSolicitacao;
                 solicitacaoOld.IdTipoSolicitacao = vm.IdTipoSolicitacao;
 
                 solicitacaoOld.NumeroSequencial = vm.NumeroSequencial;
@@ -312,7 +313,8 @@ namespace Site.Areas.Pesquisa.Controllers
 
                 _solicitacaoApp.Update(solicitacaoOld);
 
-                new Email(solicitacaoOld, _usuarioApp.GetById(Convert.ToInt32(Session["UsuarioLogado"])));
+                var mensagem = " <br/> Sua solicitação está concluída, acesse http://www.milleniumpesquisas.com.br/ para visualizar a resposta. ";
+                new Email(solicitacaoOld, vm.Cliente.EmailPrincipal, "Resposta de solicitação de pesquisa", mensagem);
             }
             catch (Exception ex)
             {
@@ -354,12 +356,12 @@ namespace Site.Areas.Pesquisa.Controllers
 
             foreach (var obj in listaCliente)
             {
-                vm.IdCliente = obj.IdCliente;
-                vm.NomeCliente = obj.CodigoCliente + " - " + (obj.Cnpj != null ? obj.NomeFantasia : obj.Nome);
-                vm.ListaCliente.Add(new SelectListItem { Text = vm.NomeCliente, Value = vm.IdCliente.ToString(CultureInfo.InvariantCulture) });
+                vm.IdClienteSolicitacao = obj.IdCliente;
+                vm.NomeClienteSolicitacao = obj.CodigoCliente + " - " + (obj.Cnpj != null ? obj.NomeFantasia : obj.Nome);
+                vm.ListaClienteSolicitacao.Add(new SelectListItem { Text = vm.NomeClienteSolicitacao, Value = vm.IdClienteSolicitacao.ToString(CultureInfo.InvariantCulture) });
             }
 
-            vm.IdCliente = idCliente;
+            vm.IdClienteSolicitacao = idCliente;
 
             #endregion
 
