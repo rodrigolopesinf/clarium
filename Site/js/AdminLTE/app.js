@@ -184,7 +184,7 @@ $(function() {
             + "<div class='.radio'>"
             + "<label>"
             + "<input name='skins' type='radio' onchange='change_skin(\"skin-blue\");' checked='checked'/> "
-            + "Marron"
+            + "Azul"
             + "</label>"
             + "</div>"
             + "</div>"

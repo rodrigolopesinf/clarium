@@ -63,9 +63,9 @@
                                 @Html.TextBoxFor(m => m.DataAdmissaoString, new { id = "datepicker", @class = "form-control", @maxlength = 10, onkeyup = "formataData(event);" })
                             </div>
                             <input type="hidden" id="my_hidden_input">
-                            <div class="form-group col-lg-12">
+                            <div class="form-group has-error col-lg-12">
                                 <label>Email</label>
-                                @Html.TextBoxFor(m => m.Email, new { @class = "form-control", @maxlength = 255, })
+                                @Html.TextBoxFor(m => m.Email, new { @class = "form-control", @maxlength = 255, required = "required" })
                             </div>
                             <div class="form-group has-error col-lg-12">
                                 <label>Login</label>

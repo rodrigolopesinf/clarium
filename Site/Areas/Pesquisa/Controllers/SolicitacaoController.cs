@@ -467,7 +467,7 @@ namespace Site.Areas.Pesquisa.Controllers
 
             pdfDocument.Add(Chunk.NEWLINE);
 
-            paragraph = new Paragraph("Data: " + DateTime.Now.ToString("dd/MM/yyyy"), font)
+            paragraph = new Paragraph("Data da Solicitação: " + solicitacao.DataHoraCriacao.ToString("dd/MM/yyyy"), font)
             {
                 Alignment = Element.ALIGN_RIGHT
             };

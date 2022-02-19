@@ -1,14 +1,22 @@
-Login: cpbarbosa
-Email: rodrigolopesinf@gmail.com
-Senha: Palio%1991
+Smarterasp
+Usu√°rio: CPBARBOSA
+Senha: Palio@131710
 
-Conta Hospedagem: celsobarbosa-001
 
-FTP EndereÁo:FTP.SITE4NOW.NET
-FTP Nome de usu·rio:cpbarbosa-001
-Senha: porr@131710
+RegistroBR
+Usu√°rio: 03332532000114
+Senha: Fiesta@1991
 
-DNS: ns1.site4now.net, ns2.site4now.net, ns3.site4now.net
+Banco de Dados
+Nome: db_a82313_
+Id: db_a82313_cpbarbosa_admin
+Senha: Palio@131710
+Banco: sql5075.site4now.net
 
-Email: clientes@clarium.net.br
-Senha: palio@1998
+Email Envio:
+https://mail5016.site4now.net
+
+suporte@milleniumpesquisas.com.br
+pesquisa@milleniumpesquisas.com.br
+consulta@milleniumpesquisas.com.br
+Fiesta@1991

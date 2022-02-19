@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Net.Mail;
 using System.Text;
 using System.Threading.Tasks;
@@ -24,54 +25,50 @@ namespace Millenium.Infra.Data.Email
 
         private void EnviarEmail(Solicitacao solicitacao, Usuario usuario)
         {
-            SmtpClient client;
-            MailMessage mail;
-            ServerConector(usuario, out client, out mail);
-
-            mail.To.Add(new MailAddress("cpbarbosa@uol.com.br", "Celso Barbosa"));
-            mail.Subject = "Contato";
-            mail.Body =
-                " <br/> Sua solicitação está concluída, acesse http://www.clarium.net.br para visualizar a resposta. ";
-            mail.IsBodyHtml = true;
-            mail.Priority = MailPriority.High;
             try
             {
-                client.Send(mail);
+                MailMessage m = new MailMessage();
+                SmtpClient sc = new SmtpClient();
+                m.From = new MailAddress("suporte@milleniumpesquisas.com.br");
+                m.To.Add(new MailAddress("cpbarbosa@uol.com.br", "Celso Barbosa"));
+                m.Subject = "Contato";
+                m.Body =
+                    " <br/> Sua solicitação está concluída, acesse http://www.milleniumpesquisas.com.br/ para visualizar a resposta. ";
+                m.IsBodyHtml = true;
+                sc.Host = "mail.milleniumpesquisas.com.br";
+                sc.Port = 25;
+                sc.Credentials = new NetworkCredential("suporte@milleniumpesquisas.com.br", "Fiesta@1991");
+                sc.EnableSsl = false;
+                sc.Send(m);
             }
             catch (Exception ex)
             {
                 throw new Exception(ex.Message);
-            }
-            finally
-            {
-                mail = null;
             }
         }
 
         private void EnviarEmail(Usuario usuario, string novaSenha)
         {
-            SmtpClient client;
-            MailMessage mail;
-            ServerConector(usuario, out client, out mail);
-
-            mail.To.Add(new MailAddress(usuario.Email, usuario.Nome));
-            mail.Subject = "Contato";
-            mail.Body =
-                " <br/> USUÁRIO:  " + usuario.Login +
-                " <br/> SENHA : " + novaSenha;
-            mail.IsBodyHtml = true;
-            mail.Priority = MailPriority.High;
             try
             {
-                client.Send(mail);
+                MailMessage m = new MailMessage();
+                SmtpClient sc = new SmtpClient();
+                m.From = new MailAddress("suporte@milleniumpesquisas.com.br");
+                m.To.Add(new MailAddress(usuario.Email, usuario.Nome));
+                m.Subject = "Contato";
+                m.Body =
+                    " <br/> USUÁRIO:  " + usuario.Login +
+                    " <br/> SENHA : " + novaSenha;
+                m.IsBodyHtml = true;
+                sc.Host = "mail.milleniumpesquisas.com.br";
+                sc.Port = 25;
+                sc.Credentials = new NetworkCredential("suporte@milleniumpesquisas.com.br", "Fiesta@1991");
+                sc.EnableSsl = false;
+                sc.Send(m);
             }
             catch (Exception ex)
             {
                 throw new Exception(ex.Message);
-            }
-            finally
-            {
-                mail = null;
             }
         }
 
@@ -79,17 +76,15 @@ namespace Millenium.Infra.Data.Email
         {
             client = new SmtpClient
             {
-                //EnableSsl = true, // GMail requer SSL
-                Port = 8889,      // porta para SSL
-                DeliveryMethod = SmtpDeliveryMethod.Network, // modo de envio
-                UseDefaultCredentials = false, // vamos utilizar credencias especificas
-                Host = "mail.clarium.net.br",
-                Credentials = new System.Net.NetworkCredential("clientes@clarium.net.br", "palio@1998")
+                Host = "mail.milleniumpesquisas.com.br",
+                Port = 25,      // porta para SSL
+                Credentials = new NetworkCredential("suporte@milleniumpesquisas.com.br", "Fiesta@1991"),
+                EnableSsl = false, // GMail requer SSL
             };
             mail = new MailMessage
             {
                 Sender = new MailAddress(usuario.Email, usuario.Nome),
-                From = new MailAddress("clientes@clarium.net.br", "Comunicado")
+                From = new MailAddress("rodrigolopesinf@gmail.com", "Comunicado")
             };
         }
     }
