@@ -36,6 +36,7 @@
                     <div class="panel-body">
                         @using (Html.BeginForm("SalvarSolicitacao", "Solicitacao", FormMethod.Post, new { enctype = "multipart/form-data", @class = "form-control-static col-md-10 center-block" }))
                         {
+                            @Html.HiddenFor(m => m.IdClienteUsuario)
                             @Html.HiddenFor(m => m.IdSolicitacao)
                             @Html.HiddenFor(m => m.DataHoraCriacao)
                             @Html.HiddenFor(m => m.IdUsuarioCriacao)

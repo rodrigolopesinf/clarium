@@ -19,6 +19,7 @@ namespace Site.Areas.Pesquisa.Models
             EnderecoViewModel = new EnderecoViewModel();
         }
 
+        public int IdClienteUsuario { get; set; }
         public string Nome { get; set; }
 
         public string NumeroSequencial { get; set; }

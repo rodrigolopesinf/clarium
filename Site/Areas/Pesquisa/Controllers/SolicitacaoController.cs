@@ -73,6 +73,11 @@ namespace Site.Areas.Pesquisa.Controllers
                 IdNivelUsuario = Convert.ToInt32(Session["NivelUsuarioLogado"])
             };
             vm = CarregarDropdownCliente(vm, true);
+
+            if (vm.IdNivelUsuario == 3)
+            {
+                vm.IdClienteUsuario = vm.IdClienteSolicitacao;
+            }            
             @ViewBag.Butons = "text-align:right";
             return View("Edit", vm);
         }
@@ -235,7 +240,7 @@ namespace Site.Areas.Pesquisa.Controllers
             {
                 var obj = new Solicitacao
                 {
-                    IdCliente = vm.IdClienteSolicitacao,
+                    IdCliente = vm.IdClienteSolicitacao > 0 ? vm.IdClienteSolicitacao : vm.IdClienteUsuario,
                     IdTipoSolicitacao = vm.IdTipoSolicitacao,
                     Endereco =
                     {
