@@ -271,7 +271,7 @@ namespace Site.Areas.Pesquisa.Controllers
 
                 _solicitacaoApp.Add(obj);
 
-                string mensagem = " <br/> O cliente " + obj.Cliente.NomeFantasia + "gerou a solicitação de número " + obj.NumeroSequencial;
+                string mensagem = " <br/> O cliente " + obj.Cliente.NomeFantasia + " gerou a solicitação de número " + obj.NumeroSequencial;
 
                 new Email(obj, "consulta@milleniumpesquisas.com.br", "Nova solicitação do cliente", mensagem);
             }
