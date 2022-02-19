@@ -265,7 +265,8 @@ namespace Site.Areas.Pesquisa.Controllers
                 GerarNumeroSequencial(obj);
 
                 _solicitacaoApp.Add(obj);
-                string mensagem = " <br/> O cliente " + vm.Cliente.NomeFantasia + "gerou a solicitação de número " + vm.IdSolicitacao;
+
+                string mensagem = " <br/> O cliente " + obj.Cliente.NomeFantasia + "gerou a solicitação de número " + obj.NumeroSequencial;
 
                 new Email(obj, "consulta@milleniumpesquisas.com.br", "Nova solicitação do cliente", mensagem);
             }
@@ -283,11 +284,17 @@ namespace Site.Areas.Pesquisa.Controllers
             {
                 Solicitacao solicitacaoOld = _solicitacaoApp.GetById(vm.IdSolicitacao);
                 solicitacaoOld.IdCliente = vm.IdClienteSolicitacao;
+                solicitacaoOld.Cliente = _clienteApp.GetById((int)solicitacaoOld.IdCliente);
+
                 solicitacaoOld.IdTipoSolicitacao = vm.IdTipoSolicitacao;
 
                 solicitacaoOld.NumeroSequencial = vm.NumeroSequencial;
-                solicitacaoOld.Sequencia = vm.Sequencia;
-                solicitacaoOld.Ano = vm.Ano;
+
+                var sequencia = vm.NumeroSequencial.Split('-');
+                var sequenciaNumero = sequencia[1].Split('/');
+
+                solicitacaoOld.Sequencia = Convert.ToInt32(sequenciaNumero[0].Trim());
+                solicitacaoOld.Ano = Convert.ToInt32(sequenciaNumero[1]);
 
                 solicitacaoOld.Endereco.IdEndereco = evm.Endereco.IdEndereco;
                 solicitacaoOld.Endereco.Logradouro = evm.Endereco.Logradouro;
@@ -308,13 +315,13 @@ namespace Site.Areas.Pesquisa.Controllers
                 solicitacaoOld.Rg = vm.Rg;
                 solicitacaoOld.Local = vm.Local;
                 solicitacaoOld.Resposta = vm.Resposta;
-                solicitacaoOld.DataHoraCriacao = DateTime.Now;
-                solicitacaoOld.IdUsuarioCriacao = Convert.ToInt32(Session["UsuarioLogado"]);
+                solicitacaoOld.DataHoraAlteracao = DateTime.Now;
+                solicitacaoOld.IdUsuarioAlteracao= Convert.ToInt32(Session["UsuarioLogado"]);
 
                 _solicitacaoApp.Update(solicitacaoOld);
 
                 var mensagem = " <br/> Sua solicitação está concluída, acesse http://www.milleniumpesquisas.com.br/ para visualizar a resposta. ";
-                new Email(solicitacaoOld, vm.Cliente.EmailPrincipal, "Resposta de solicitação de pesquisa", mensagem);
+                new Email(solicitacaoOld, solicitacaoOld.Cliente.EmailPrincipal, "Resposta de solicitação de pesquisa", mensagem);
             }
             catch (Exception ex)
             {
@@ -327,11 +334,11 @@ namespace Site.Areas.Pesquisa.Controllers
         public void GerarNumeroSequencial(Solicitacao obj)
         {
             var idCliente = (int)obj.IdCliente;
-            var cliente = _clienteApp.GetById(idCliente);
+            obj.Cliente = _clienteApp.GetById(idCliente);
             obj.Ano = DateTime.Now.Year;
             obj.Sequencia = GetSequencial(obj.Ano, idCliente);
 
-            obj.NumeroSequencial = cliente.CodigoCliente + " - " + obj.Sequencia + "/" + obj.Ano;
+            obj.NumeroSequencial = obj.Cliente.CodigoCliente + " - " + obj.Sequencia + "/" + obj.Ano;
         }
 
         public int GetSequencial(int ano, int idCliente)
