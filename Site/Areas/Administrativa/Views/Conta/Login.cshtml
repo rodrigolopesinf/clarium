@@ -23,8 +23,16 @@
 </head>
 
 <body>
-    <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-            <div class="panel panel-primary">
+
+    <!-- CONTEÚDO DO LOGIN -->
+    <section class="cnt-login" style="display: none;">
+
+        <div class="cnt-logo">
+            <img src="~/img/millenium-logo-sembg.png" />
+        </div>
+
+        <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+            <div class="panel">
                 <div class="panel-heading" role="tab" id="headingOne">
                     <h4 class="panel-title">
                         <i class="fa fa-sign-in"></i>&nbsp;Acesso ao Sistema
@@ -37,25 +45,24 @@
                             @Html.ValidationSummary(true)
 
                             <div class="form-group col-lg-12 center-block">
-                                <hr />
                                 <h4 class="panel-title">
                                     <i class="fa fa-unlock-alt"></i>&nbsp;Login
                                 </h4>
                                 <br />
-                                <div class="form-group col-lg-4">
+                                <div class="form-group">
                                     @Html.TextBoxFor(m => m.Login, new { @class = "form-control input-lg", @placeholder = "Usuário", @maxlength = 50 })
                                     <div class="error">@Html.ValidationMessageFor(m => m.Login)</div>
                                 </div>
                             </div>
                             <div class="form-group col-lg-12 center-block">
-                                <div class="form-group col-lg-4">
+                                <div class="form-group">
                                     @Html.PasswordFor(m => m.Senha, new { @class = "form-control input-lg", @placeholder = "Senha", @Textmode = "Password", @maxlength = 8 })
                                     <div class="error">@Html.ValidationMessageFor(m => m.Senha)</div>
                                 </div>
                             </div>
                             <div class="form-group col-lg-12 center-block">
-                                <div class="form-group col-lg-4" style=@ViewBag.Butons>
-                                    <input type="submit" class="btn btn-primary btn-lg btn-block" value="Entrar" />
+                                <div class="form-group" style=@ViewBag.Butons>
+                                    <input type="submit" class="btn btn-primary btn-lg btn-block" value="Acessar" />
                                     <br />
                                     <div class="error">@ViewBag.Mensagem</div>
                                 </div>
@@ -65,6 +72,93 @@
                 </div>
             </div>
         </div>
+
+        <div class="cnt-copyright">
+            ©2024 Millenium Pesquisas - Todos os direitos reservados.
+        </div>
+
+    </section>
+    <!-- FIM CONTEÚDO DO LOGIN -->
+
+    
+    <section class="cnt-pesquisa" style="display: none;">
+
+        <div class="cnt-topo">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6">
+                        <img src="~/img/millenium-logo-sembg.png" class="logo" />
+                    </div>
+                    <div class="col-md-6">
+                        <div class="username-logout">
+                            Olá, USERNAME 
+                            <a href="##">Sair</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    
+    </section>
+
+    <section class="cnt-pesquisa">
+
+        <div class="cnt-conteudo">
+            <div class="container">
+                <div class="row">
+                    <form>
+                        <div class="col-sm-12 col-md-4">
+                            <label>Tipo de Pesquisa</label>
+                            <select class="form-control">
+                                <option>Pesquisa tipo 1</option>
+                                <option>Pesquisa tipo 2</option>
+                                <option>Pesquisa tipo 3</option>
+                                <option>Pesquisa tipo 4</option>
+                                <option>Pesquisa tipo 5</option>
+                            </select>
+                        </div>
+                        <div class="col-sm-12 col-md-4 pt-2">
+                            <button type="button" class="btn btn-primary">Pesquisar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="cnt-resultado-busca">
+            <div class="container">
+                <div class="row">
+
+                    <div class="col-md-12">
+
+                        <h3>Resultado da pesquisa título</h3>
+                        <h4>Resultado da pesquisa subtítulo</h4>
+                        <p>Vestibulum efficitur ligula non nibh consequat hendrerit at eu ex. Integer turpis leo, efficitur sit amet erat eu, laoreet fermentum odio. Duis eget lacinia justo. Vestibulum eget dui a elit fringilla ullamcorper. Nunc eu ornare metus. Cras ac lacus mattis mauris rutrum vestibulum.</p>
+
+                        <h3>Resultado da pesquisa título</h3>
+                        <h4>Resultado da pesquisa subtítulo</h4>
+                        <p>Vestibulum efficitur ligula non nibh consequat hendrerit at eu ex. Integer turpis leo, efficitur sit amet erat eu, laoreet fermentum odio. Duis eget lacinia justo. Vestibulum eget dui a elit fringilla ullamcorper. Nunc eu ornare metus. Cras ac lacus mattis mauris rutrum vestibulum.</p>
+
+                        <h3>Resultado da pesquisa título</h3>
+                        <h4>Resultado da pesquisa subtítulo</h4>
+                        <p>Vestibulum efficitur ligula non nibh consequat hendrerit at eu ex. Integer turpis leo, efficitur sit amet erat eu, laoreet fermentum odio. Duis eget lacinia justo. Vestibulum eget dui a elit fringilla ullamcorper. Nunc eu ornare metus. Cras ac lacus mattis mauris rutrum vestibulum.</p>
+
+                        <h3>Resultado da pesquisa título</h3>
+                        <h4>Resultado da pesquisa subtítulo</h4>
+                        <p>Vestibulum efficitur ligula non nibh consequat hendrerit at eu ex. Integer turpis leo, efficitur sit amet erat eu, laoreet fermentum odio. Duis eget lacinia justo. Vestibulum eget dui a elit fringilla ullamcorper. Nunc eu ornare metus. Cras ac lacus mattis mauris rutrum vestibulum.</p>
+
+                        <h3>Resultado da pesquisa título</h3>
+                        <h4>Resultado da pesquisa subtítulo</h4>
+                        <p>Vestibulum efficitur ligula non nibh consequat hendrerit at eu ex. Integer turpis leo, efficitur sit amet erat eu, laoreet fermentum odio. Duis eget lacinia justo. Vestibulum eget dui a elit fringilla ullamcorper. Nunc eu ornare metus. Cras ac lacus mattis mauris rutrum vestibulum.</p>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </section>
 
 </body>
 </html>
