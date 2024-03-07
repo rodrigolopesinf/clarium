@@ -110,13 +110,7 @@
                     <form>
                         <div class="col-sm-12 col-md-4">
                             <label>Tipo de Pesquisa</label>
-                            <select class="form-control">
-                                <option>Pesquisa tipo 1</option>
-                                <option>Pesquisa tipo 2</option>
-                                <option>Pesquisa tipo 3</option>
-                                <option>Pesquisa tipo 4</option>
-                                <option>Pesquisa tipo 5</option>
-                            </select>
+                            @Html.DropDownListFor(model => model.IdTipoSolicitacao, Model.ListaTipoSolicitacao, "SELECIONE", new { @class = "form-control" })
                         </div>
                         <div class="col-sm-12 col-md-4 pt-2">
                             <button type="button" class="btn btn-primary">Pesquisar</button>
