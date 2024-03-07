@@ -1,6 +1,185 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@100;300;400;700;900&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+
 .modal-footer {   border-top: 0px; }
 
 .error{
     color: red;
     font-weight:500;
 }
+
+
+
+/*  ---  */
+
+
+.cnt-login {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background: #f9f9f9;
+    padding: 0 0 50px 0;
+}
+
+.panel-group .panel {
+    padding: 20px;
+    border-radius: 10px !important;
+    box-shadow: 0 0 25px rgba(0, 0, 0, 0.05) !important;
+}
+
+.panel-title {
+    font-family: "Montserrat", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.panel-group .panel-heading + .panel-collapse .panel-body {
+    margin-top: 10px;
+    padding-top: 20px;
+}
+
+.form-control  {
+    font-family: "Montserrat", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.btn-primary {
+    font-family: "Montserrat", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.cnt-logo {
+    padding: 40px 0;
+}
+
+.cnt-copyright {
+    font-family: "Montserrat", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    color: #808080;
+    padding: 20px 0;
+}
+
+.btn .btn-primary {
+    background-color: #000000 !important;
+    border-color: #000000 !important;
+    transition: ease-in-out 0.3s;
+}
+
+
+.cnt-pesquisa {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background: #f9f9f9;
+    padding-top: 20px;
+}
+
+    .cnt-pesquisa .cnt-topo {
+        padding: 20px;
+        border-radius: 10px !important;
+        box-shadow: 0 0 25px rgba(0, 0, 0, 0.05) !important;
+        background-color: #ffffff;
+    }
+
+        .cnt-pesquisa .cnt-topo .logo {
+            width: 10%;
+        }
+
+        .cnt-pesquisa .cnt-topo .username-logout {
+            display: flex;
+            justify-content: center;
+            align-items: end;
+            flex-direction: column;
+            font-family: "Montserrat", sans-serif;
+            font-weight: 400;
+            font-style: normal;
+        }
+
+            .cnt-pesquisa .cnt-topo .username-logout a {
+                font-family: "Montserrat", sans-serif;
+                font-weight: 400;
+                font-style: normal;
+                text-decoration: none;
+                color: #e5650a;
+                transition: ease-in-out 0.3s;
+            }
+                .cnt-pesquisa .cnt-topo .username-logout a:hover {
+                    color: #ae4d07;
+                }
+
+.cnt-pesquisa {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background: #f9f9f9;
+    padding-top: 20px;
+}
+
+    .cnt-pesquisa .cnt-conteudo {
+        padding: 20px;
+        border-radius: 10px !important;
+        box-shadow: 0 0 25px rgba(0, 0, 0, 0.05) !important;
+        background-color: #ffffff;
+    }
+
+        .cnt-pesquisa .cnt-conteudo label {
+            font-family: "Montserrat", sans-serif;
+            font-weight: 700;
+            font-style: normal;
+            font-size: 14px;
+            color: #3d3d3d;
+        }
+
+        .cnt-pesquisa .cnt-conteudo .pt-2 {
+            padding-top: 24px;
+        }
+
+    .cnt-pesquisa .cnt-resultado-busca {
+        margin-top: 20px;
+        padding: 20px;
+        border-radius: 10px !important;
+        box-shadow: 0 0 25px rgba(0, 0, 0, 0.05) !important;
+        background-color: #ffffff;
+    }
+
+        .cnt-pesquisa .cnt-resultado-busca h3 {
+            font-family: "Montserrat", sans-serif;
+            font-weight: 700;
+            font-style: normal;
+            font-size: 20px;
+            color: #000000;
+        }
+
+        .cnt-pesquisa .cnt-resultado-busca h4 {
+            font-family: "Montserrat", sans-serif;
+            font-weight: 600;
+            font-style: normal;
+            font-size: 18px;
+            color: #000000;
+        }
+
+        .cnt-pesquisa .cnt-resultado-busca p {
+            font-family: "Montserrat", sans-serif;
+            font-weight: 400;
+            font-style: normal;
+            font-size: 14px;
+            color: #000000;
+            padding-bottom: 30px;
+            border-bottom: 1px solid #d8d8d8;
+        }
+
+        .cnt-pesquisa .cnt-resultado-busca p:last-child {
+            border-bottom: 0;
+        }
+
+/*
+
+    
+
+*/
