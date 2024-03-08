@@ -17,57 +17,149 @@
     <![endif]-->
     <link href="~/Content/Login/styles.css" rel="stylesheet" />
     <link href="/css/AdminLTE.css" rel="stylesheet" type="text/css" />
-    <link href="/css/bootstrap.css" rel="stylesheet" type="text/css" />
+    @*<link href="/css/bootstrap.css" rel="stylesheet" type="text/css" />*@
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <!-- font Awesome -->
     <link href="/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
 </head>
 
 <body>
+    <!-- main site -->
 
-    <!-- CONTEÚDO DO LOGIN -->
-    <section class="cnt-login">
+    <section class="main-site">
 
-        <div class="cnt-logo">
-            <img src="~/img/millenium-logo-sembg.png" />
+        <div class="cnt-topo">
+            <div class="row">
+                <div class="col-md-6 ">
+                    <ul class="nav nav-pills" id="pills-tab" role="tablist">
+                        <li class="nav-item border-radius-left" role="presentation">
+                            <button class="nav-link active" id="pills-home-tab" data-bs-toggle="pill" data-bs-target="#pills-home" type="button" role="tab" aria-controls="pills-home" aria-selected="true">Home</button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">A Empresa</button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="pills-contact-tab" data-bs-toggle="pill" data-bs-target="#pills-contact" type="button" role="tab" aria-controls="pills-contact" aria-selected="false">Contato</button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="pills-login-tab" data-bs-toggle="pill" data-bs-target="#pills-login" type="button" role="tab" aria-controls="pills-login" aria-selected="false">Login</button>
+                        </li>
+                    </ul>
+                </div>
+            </div>
         </div>
 
-        <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-            <div class="panel">
-                <div class="panel-heading" role="tab" id="headingOne">
-                    <h4 class="panel-title">
-                        <i class="fa fa-sign-in"></i>&nbsp;Acesso ao Sistema
-                    </h4>
-                </div>
-                <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
-                    <div class="panel-body">
-                        @using (Html.BeginForm("Autenticar", "Conta"))
-                        {
-                            @Html.ValidationSummary(true)
+        <div class="cnt-conteudo">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="tab-content" id="pills-tabContent">
 
-                            <div class="form-group col-lg-12 center-block">
-                                <h4 class="panel-title">
-                                    <i class="fa fa-unlock-alt"></i>&nbsp;Login
-                                </h4>
-                                <br />
-                                <div class="form-group">
-                                    @Html.TextBoxFor(m => m.Login, new { @class = "form-control input-lg", @placeholder = "Usuário", @maxlength = 50 })
-                                    <div class="error">@Html.ValidationMessageFor(m => m.Login)</div>
+                        <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab" tabindex="0">
+                            <div class="row">
+                                <div class="col-12 col-md-2">
+                                    <img src="~/img/millenium-logo-sembg.png" class="logo" />
+                                </div>
+                                <div class="col-12 col-md-9">
+                                    <h1>
+                                        MILLENIUM<br />
+                                        <span>PESQUISAS CADASTRAIS</span>
+                                    </h1>
+                                    <p>
+                                        Pellentesque tincidunt consequat elit, nec tristique mauris. In hac habitasse platea dictumst. Nunc tincidunt odio quis auctor tristique. Nulla sit amet placerat orci. Sed consequat vestibulum magna at maximus. Maecenas lacus est, elementum vitae rutrum et, eleifend sit amet elit. In interdum ante in eleifend auctor. Fusce sagittis massa arcu, at volutpat turpis sodales non. Proin convallis, mi ut pharetra pretium, ex tellus scelerisque nibh, at tempus turpis velit id metus.
+                                        <br /><br />
+                                        Mauris ultricies dolor varius viverra dictum. Nulla id ante a turpis rutrum pellentesque vitae eget enim. Integer porta libero nulla, et facilisis turpis tempor hendrerit. Nam eu fringilla ex. Vestibulum non mauris dignissim, condimentum risus nec, placerat lacus. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                                        <br /><br />
+                                        Morbi ipsum eros, tempus eu posuere a, luctus id arcu.
+                                    </p>
                                 </div>
                             </div>
-                            <div class="form-group col-lg-12 center-block">
-                                <div class="form-group">
-                                    @Html.PasswordFor(m => m.Senha, new { @class = "form-control input-lg", @placeholder = "Senha", @Textmode = "Password", @maxlength = 8 })
-                                    <div class="error">@Html.ValidationMessageFor(m => m.Senha)</div>
+                        </div>
+
+                        <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab" tabindex="0">
+                            <div class="row">
+                                <div class="col-12 col-md-2">
+                                    <img src="~/img/close-up-businessman-with-digital-tablet.jpg" class="ilu-a-empresa" />
+                                </div>
+                                <div class="col-12 col-md-9">
+                                    <h4>A Empresa</h4>
+                                    <h1>
+                                        MILLENIUM<br />
+                                        <span>PESQUISAS CADASTRAIS</span>
+                                    </h1>
+                                    <p>
+                                        Pellentesque tincidunt consequat elit, nec tristique mauris. In hac habitasse platea dictumst. Nunc tincidunt odio quis auctor tristique. Nulla sit amet placerat orci. Sed consequat vestibulum magna at maximus. Maecenas lacus est, elementum vitae rutrum et, eleifend sit amet elit. In interdum ante in eleifend auctor. Fusce sagittis massa arcu, at volutpat turpis sodales non. Proin convallis, mi ut pharetra pretium, ex tellus scelerisque nibh, at tempus turpis velit id metus.
+                                        <br /><br />
+                                        Mauris ultricies dolor varius viverra dictum. Nulla id ante a turpis rutrum pellentesque vitae eget enim. Integer porta libero nulla, et facilisis turpis tempor hendrerit. Nam eu fringilla ex. Vestibulum non mauris dignissim, condimentum risus nec, placerat lacus. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                                        <br /><br />
+                                        Morbi ipsum eros, tempus eu posuere a, luctus id arcu.
+                                    </p>
                                 </div>
                             </div>
-                            <div class="form-group col-lg-12 center-block">
-                                <div class="form-group" style=@ViewBag.Butons>
-                                    <input type="submit" class="btn btn-primary btn-lg btn-block" value="Acessar" />
-                                    <br />
-                                    <div class="error">@ViewBag.Mensagem</div>
+                        </div>
+
+                        <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab" tabindex="0">
+                            <div class="row">
+                                <div class="col-12 col-md-9">
+                                    <h4>Contato</h4>
+                                    <h5>E-mail:</h5>
+                                    <p>
+                                        contato@millenium.com.br
+                                    </p>
+                                    <h5>Endereço:</h5>
+                                    <p>
+                                        Avenida Sete de Setembro, 700, Icaraí, Niterói - Rio de Janeiro <br />
+                                        <strong>(21) 2997-6455</strong> <br /><br />
+                                        Sodales metus fringilla ultrices. Aliquam fringilla in orci finibus varius. Nullam dapibus dictum ultricies. Aliquam pulvinar nisi nec tellus porttitor viverra.
+                                    </p>
                                 </div>
                             </div>
-                        }
+                        </div>
+
+                        <div class="tab-pane fade" id="pills-login" role="tabpanel" aria-labelledby="pills-login-tab" tabindex="0">
+                            <div class="row">
+
+                                <div class="col-12 col-md-12">
+                                    <h4 class="panel-title">
+                                        <i class="fa fa-sign-in"></i>&nbsp;Acesso ao Sistema
+                                    </h4>
+                                </div>
+
+                                <div class="col-12 col-md-6">
+                                    <div class="panel-body">
+                                        @using (Html.BeginForm("Autenticar", "Conta"))
+                                        {
+                                            @Html.ValidationSummary(true)
+
+                                            <div class="form-group col-lg-12 center-block">
+                                                <h4 class="panel-title">
+                                                    <i class="fa fa-unlock-alt"></i>&nbsp;Login
+                                                </h4>
+                                                <br />
+                                                <div class="form-group" style="padding-bottom: 20px;">
+                                                    @Html.TextBoxFor(m => m.Login, new { @class = "form-control input-lg", @placeholder = "Usuário", @maxlength = 50 })
+                                                    <div class="error">@Html.ValidationMessageFor(m => m.Login)</div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group col-lg-12 center-block">
+                                                <div class="form-group" style="padding-bottom: 20px;">
+                                                    @Html.PasswordFor(m => m.Senha, new { @class = "form-control input-lg", @placeholder = "Senha", @Textmode = "Password", @maxlength = 8 })
+                                                    <div class="error">@Html.ValidationMessageFor(m => m.Senha)</div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group col-lg-12 center-block" style="padding-bottom: 20px;">
+                                                <div class="form-group" style=@ViewBag.Butons>
+                                                    <input type="submit" class="btn btn-primary btn-lg btn-block" value="Acessar" />
+                                                    <br />
+                                                    <div class="error">@ViewBag.Mensagem</div>
+                                                </div>
+                                            </div>
+                                        }
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
                     </div>
                 </div>
             </div>
@@ -78,81 +170,10 @@
         </div>
 
     </section>
-    <!-- FIM CONTEÚDO DO LOGIN -->
 
-    
-    <section class="cnt-pesquisa" style="display: none;">
+    <!-- fim main site -->
 
-        <div class="cnt-topo">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-6">
-                        <img src="~/img/millenium-logo-sembg.png" class="logo" />
-                    </div>
-                    <div class="col-md-6">
-                        <div class="username-logout">
-                            Olá, USERNAME 
-                            <a href="##">Sair</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-        </div>
-    
-    </section>
-
-    <section class="cnt-pesquisa">
-
-        <div class="cnt-conteudo">
-            <div class="container">
-                <div class="row">
-                    <form>
-                        <div class="col-sm-12 col-md-4">
-                            <label>Tipo de Pesquisa</label>
-                            @Html.DropDownListFor(model => model.IdTipoSolicitacao, Model.ListaTipoSolicitacao, "SELECIONE", new { @class = "form-control" })
-                        </div>
-                        <div class="col-sm-12 col-md-4 pt-2">
-                            <button type="button" class="btn btn-primary">Pesquisar</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-
-        <div class="cnt-resultado-busca">
-            <div class="container">
-                <div class="row">
-
-                    <div class="col-md-12">
-
-                        <h3>Resultado da pesquisa título Primeiro</h3>
-                        <h4>Resultado da pesquisa subtítulo</h4>
-                        <p>Vestibulum efficitur ligula non nibh consequat hendrerit at eu ex. Integer turpis leo, efficitur sit amet erat eu, laoreet fermentum odio. Duis eget lacinia justo. Vestibulum eget dui a elit fringilla ullamcorper. Nunc eu ornare metus. Cras ac lacus mattis mauris rutrum vestibulum.</p>
-
-                        <h3>Resultado da pesquisa título</h3>
-                        <h4>Resultado da pesquisa subtítulo</h4>
-                        <p>Vestibulum efficitur ligula non nibh consequat hendrerit at eu ex. Integer turpis leo, efficitur sit amet erat eu, laoreet fermentum odio. Duis eget lacinia justo. Vestibulum eget dui a elit fringilla ullamcorper. Nunc eu ornare metus. Cras ac lacus mattis mauris rutrum vestibulum.</p>
-
-                        <h3>Resultado da pesquisa título</h3>
-                        <h4>Resultado da pesquisa subtítulo</h4>
-                        <p>Vestibulum efficitur ligula non nibh consequat hendrerit at eu ex. Integer turpis leo, efficitur sit amet erat eu, laoreet fermentum odio. Duis eget lacinia justo. Vestibulum eget dui a elit fringilla ullamcorper. Nunc eu ornare metus. Cras ac lacus mattis mauris rutrum vestibulum.</p>
-
-                        <h3>Resultado da pesquisa título</h3>
-                        <h4>Resultado da pesquisa subtítulo</h4>
-                        <p>Vestibulum efficitur ligula non nibh consequat hendrerit at eu ex. Integer turpis leo, efficitur sit amet erat eu, laoreet fermentum odio. Duis eget lacinia justo. Vestibulum eget dui a elit fringilla ullamcorper. Nunc eu ornare metus. Cras ac lacus mattis mauris rutrum vestibulum.</p>
-
-                        <h3>Resultado da pesquisa título</h3>
-                        <h4>Resultado da pesquisa subtítulo</h4>
-                        <p>Vestibulum efficitur ligula non nibh consequat hendrerit at eu ex. Integer turpis leo, efficitur sit amet erat eu, laoreet fermentum odio. Duis eget lacinia justo. Vestibulum eget dui a elit fringilla ullamcorper. Nunc eu ornare metus. Cras ac lacus mattis mauris rutrum vestibulum.</p>
-
-                    </div>
-
-                </div>
-            </div>
-        </div>
-
-    </section>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 
 </body>
 </html>

@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Lato:wght@100;300;400;700;900&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
 
 
 .modal-footer {   border-top: 0px; }
@@ -13,47 +13,6 @@
 /*  ---  */
 
 
-.cnt-login {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    background: #f9f9f9;
-    padding: 0 0 50px 0;
-}
-
-.panel-group .panel {
-    padding: 20px;
-    border-radius: 10px !important;
-    box-shadow: 0 0 25px rgba(0, 0, 0, 0.05) !important;
-}
-
-.panel-title {
-    font-family: "Montserrat", sans-serif;
-    font-weight: 400;
-    font-style: normal;
-}
-
-.panel-group .panel-heading + .panel-collapse .panel-body {
-    margin-top: 10px;
-    padding-top: 20px;
-}
-
-.form-control  {
-    font-family: "Montserrat", sans-serif;
-    font-weight: 400;
-    font-style: normal;
-}
-
-.btn-primary {
-    font-family: "Montserrat", sans-serif;
-    font-weight: 400;
-    font-style: normal;
-}
-
-.cnt-logo {
-    padding: 40px 0;
-}
 
 .cnt-copyright {
     font-family: "Montserrat", sans-serif;
@@ -177,6 +136,77 @@
         .cnt-pesquisa .cnt-resultado-busca p:last-child {
             border-bottom: 0;
         }
+
+
+
+/* --- */
+
+.main-site {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background: #f9f9f9;
+    padding-top: 20px;
+}
+
+    .main-site .nopadding {
+        padding-left: 0;
+        padding-right: 0;
+    }
+
+    .main-site .cnt-topo {
+        box-shadow: 0 0 25px rgba(0, 0, 0, 0.05) !important;
+        background-color: #ffffff;
+        width: 50%;
+    }
+
+        .main-site .cnt-topo .nav-pills li .nav-link:first-child {
+            border-radius: 0;
+            padding: 20px 30px;
+        }
+
+        .main-site .cnt-topo .nav-pills .nav-link {
+            border-radius: 10px;
+            padding: 10px 30px;
+            color: #fa6502;
+            font-family: "Montserrat", sans-serif;
+            font-weight: 400;
+            font-style: normal;
+            color: #808080;
+        }
+
+            .main-site .cnt-topo .nav-pills .nav-link.active, .nav-pills .show > .nav-link {
+                color: var(--bs-nav-pills-link-active-color);
+                background-color: #fa6502;
+            }
+
+    .main-site .cnt-conteudo {
+        margin-top: 20px;
+        box-shadow: 0 0 25px rgba(0, 0, 0, 0.05) !important;
+        background-color: #ffffff;
+        padding: 30px;
+        width: 50%;
+        font-family: "Montserrat", sans-serif;
+        font-weight: 400;
+        font-style: normal;
+        color: #808080;
+    }
+
+        .main-site .cnt-conteudo .ilu-a-empresa {
+            width: 100%;
+        }
+
+        .main-site .cnt-conteudo h1 {
+            color: #fa6502;
+            line-height: 30px;
+            margin-bottom: 30px;
+        }
+
+            .main-site .cnt-conteudo h1 span {
+                color: #3d3d3d;
+                font-size: 20px;
+            }
 
 /*
 
