@@ -476,6 +476,7 @@
     <Content Include="img\excluir.png" />
     <Content Include="img\heroAccent.png" />
     <Content Include="img\icons.png" />
+    <Content Include="img\ico\ico-pesquisa-social.png" />
     <Content Include="img\loading-sm.gif" />
     <Content Include="img\loading.gif" />
     <Content Include="img\rodape.png" />
