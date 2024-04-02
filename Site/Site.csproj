@@ -868,9 +868,6 @@
     <Content Include="fonts\ionicons.woff" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="img\Thumbs.db" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="less\404_500_errors.less" />
     <Content Include="less\AdminLTE.less" />
     <Content Include="less\alerts.less" />
